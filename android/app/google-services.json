@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "26151793746",
+    "project_id": "decibels-3361d",
+    "storage_bucket": "decibels-3361d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26151793746:android:a537b106c705fc7efbdb8b",
+        "android_client_info": {
+          "package_name": "com.example.decibels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26151793746-cs7i8204qr9vg1v2m8ikra0hfe04ivhj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcCBSjYqR-AQo7M9xrkRtngKeq8a7Gl8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26151793746-cs7i8204qr9vg1v2m8ikra0hfe04ivhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
