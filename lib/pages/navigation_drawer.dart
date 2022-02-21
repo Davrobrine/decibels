@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DrawerPage extends StatefulWidget {
   DrawerPage({Key? key}) : super(key: key);
@@ -9,8 +11,8 @@ class DrawerPage extends StatefulWidget {
 
 class _DrawerPageState extends State<DrawerPage> {
   ListView listView = ListView(
-    children: const <Widget>[
-      DrawerHeader(
+    children: <Widget>[
+      const DrawerHeader(
         decoration: BoxDecoration(
           color: Colors.blue,
         ),
@@ -22,13 +24,20 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
         ),
       ),
-      ListTile(
+      const ListTile(
         leading: Icon(Icons.settings),
         title: Text('Config'),
       ),
-      ListTile(
+      const ListTile(
         leading: Icon(Icons.account_circle),
         title: Text('Profile'),
+      ),
+      TextButton.icon(
+        onPressed: () async {
+          FirebaseAuth.instance.signOut();
+        },
+        icon: const FaIcon(FontAwesomeIcons.signOutAlt),
+        label: const Text('Salir'),
       ),
     ],
   );

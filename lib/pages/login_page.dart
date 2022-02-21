@@ -2,6 +2,7 @@ import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -30,10 +31,8 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          Expanded(
-            child: Image.asset('assets/decibels.png'),
-          ),
+          const SizedBox(height: 20),
+          Image.asset('assets/decibels.png'),
           const SizedBox(height: 20),
           TextField(
             controller: _emailController,
@@ -59,13 +58,12 @@ class _LoginPageState extends State<LoginPage> {
               'Iniciar Sesion',
               style: TextStyle(fontSize: 24),
             ),
-            onPressed: () {},
-            // signIn,
+            onPressed: signIn,
           ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              // signInWithGoogle();
+              signInWithGoogle();
             },
             style: ElevatedButton.styleFrom(
               primary: const Color(0xffdb4a39),
@@ -106,5 +104,24 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
