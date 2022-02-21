@@ -12,32 +12,38 @@ class DrawerPage extends StatefulWidget {
 class _DrawerPageState extends State<DrawerPage> {
   ListView listView = ListView(
     children: <Widget>[
-      const DrawerHeader(
-        decoration: BoxDecoration(
-          color: Colors.blue,
+      DrawerHeader(
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 151, 161, 170),
         ),
-        child: Text(
-          'Drawer Header',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-          ),
-        ),
+        child: Image.asset('assets/decibels.png'),
       ),
-      const ListTile(
-        leading: Icon(Icons.settings),
-        title: Text('Config'),
+      ListTile(
+        leading: const Icon(Icons.person),
+        title: const Text('Perfil'),
+        onTap: () {},
       ),
-      const ListTile(
-        leading: Icon(Icons.account_circle),
-        title: Text('Profile'),
+      ListTile(
+        leading: const Icon(Icons.home),
+        title: const Text('Página principal'),
+        onTap: () {},
       ),
-      TextButton.icon(
-        onPressed: () async {
+      ListTile(
+        leading: const Icon(Icons.disc_full),
+        title: const Text('Biblioteca'),
+        onTap: () {},
+      ),
+      ListTile(
+        leading: const Icon(Icons.question_mark),
+        title: const Text('Términos'),
+        onTap: () {},
+      ),
+      ListTile(
+        leading: const FaIcon(FontAwesomeIcons.signOutAlt),
+        title: const Text('Salir'),
+        onTap: () async {
           FirebaseAuth.instance.signOut();
         },
-        icon: const FaIcon(FontAwesomeIcons.signOutAlt),
-        label: const Text('Salir'),
       ),
     ],
   );
