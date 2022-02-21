@@ -1,9 +1,15 @@
 # decibels
 
 ¡ADVERTENCIA!
+
 Este proyecto ha sido realizado bajo las siguientes versiones:
-Flutter SDK 2.10.2
-Dart SDK 2.16.1
+
+- Flutter SDK 2.10.2
+- Dart SDK 2.16.1
+
+Para actualizar el SDK y correr este proyecto, correr el siguiente comando:
+
+- "flutter upgrade"
 
 A new Flutter project.
 
