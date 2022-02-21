@@ -1,6 +1,6 @@
 # decibels
 
-¡ADVERTENCIA!
+## ¡ADVERTENCIA!
 
 Este proyecto ha sido realizado bajo las siguientes versiones:
 
@@ -9,7 +9,13 @@ Este proyecto ha sido realizado bajo las siguientes versiones:
 
 Para actualizar el SDK y correr este proyecto, correr el siguiente comando:
 
-- "flutter upgrade"
+## - "flutter upgrade"
+
+Para limpiar y obtener las dependencias correr los siguientes comandos:
+
+## - "flutter clean"
+
+## - "flutter pub get"
 
 A new Flutter project.
 
