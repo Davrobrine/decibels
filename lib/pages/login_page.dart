@@ -31,10 +31,8 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
-          Expanded(
-            child: Image.asset('assets/decibels.png'),
-          ),
+          const SizedBox(height: 20),
+          Image.asset('assets/decibels.png'),
           const SizedBox(height: 20),
           TextField(
             controller: _emailController,
