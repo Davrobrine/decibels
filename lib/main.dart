@@ -1,4 +1,3 @@
-import 'package:decibels/pages/home_page.dart';
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
