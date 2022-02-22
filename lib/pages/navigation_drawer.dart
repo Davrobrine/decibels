@@ -1,9 +1,11 @@
+import 'package:decibels/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DrawerPage extends StatefulWidget {
   DrawerPage({Key? key}) : super(key: key);
+  static const String routeName = "/Inicio";
 
   @override
   State<DrawerPage> createState() => _DrawerPageState();
@@ -29,7 +31,7 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.home),
               title: const Text('Página principal'),
               onTap: () {
-                Navigator.of(context).pushNamed('/');
+                Navigator.of(context).pushNamed('/Inicio');
               },
             ),
             ListTile(
@@ -86,6 +88,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ],
         ),
       ),
+      body: HomePage(),
     );
   }
 }
