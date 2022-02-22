@@ -32,11 +32,11 @@ class _ListaBibliotecaState extends State<ListaBiblioteca> {
   @override
   void initState() {
     canciones = [
-      Cancion("Cancion 1", "artista 1", ''),
-      Cancion("Cancion 2", "artista 2", ''),
-      Cancion("Cancion 3", "artista 3", ''),
-      Cancion("Cancion 4", "artista 4", ''),
-      Cancion("Cancion 5", "artista 5", ''),
+      Cancion("Artista 1", "artista 1", ''),
+      Cancion("Artista 2", "artista 2", ''),
+      Cancion("Artista 3", "artista 3", ''),
+      Cancion("Artista 4", "artista 4", ''),
+      Cancion("Artista 5", "artista 5", ''),
     ];
     super.initState();
   }

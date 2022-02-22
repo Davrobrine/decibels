@@ -13,7 +13,7 @@ class Settings extends StatelessWidget {
         children: [
           new Container(
             child: new Container(
-              child: Image.asset('assets/user_change_photo.png', width: 100),
+              child: Image.asset('assets/user.png', width: 100),
             ),
           ),
 

@@ -21,9 +21,16 @@ class _DrawerPageState extends State<DrawerPage> {
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 67, 78, 87),
+                color: Color.fromARGB(255, 186, 198, 206),
               ),
               child: Image.asset('assets/decibels.png'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Página principal'),
+              onTap: () {
+                Navigator.of(context).pushNamed('/');
+              },
             ),
             ListTile(
               leading: const Icon(Icons.person),
@@ -35,34 +42,39 @@ class _DrawerPageState extends State<DrawerPage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Página principal'),
-              onTap: () {},
-            ),
-            ListTile(
               leading: const Icon(Icons.disc_full),
               title: const Text('Biblioteca'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.question_mark),
-              title: const Text('Términos'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configuracion'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.offline_bolt),
-              title: const Text('Offline'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed('/Biblioteca');
+              },
             ),
             ListTile(
               leading: const Icon(Icons.subscriptions),
               title: const Text('Suscripciones'),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed('/Subscriptions');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Configuracion'),
+              onTap: () {
+                Navigator.of(context).pushNamed('/Configuracion');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.offline_bolt),
+              title: const Text('Offline'),
+              onTap: () {
+                Navigator.of(context).pushNamed('/Offline');
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.question_mark),
+              title: const Text('Términos'),
+              onTap: () {
+                Navigator.of(context).pushNamed('/Terminos');
+              },
             ),
             ListTile(
               leading: const FaIcon(FontAwesomeIcons.signOutAlt),

@@ -48,7 +48,7 @@ class _ListaBibliotecaState extends State<ListaBiblioteca> {
         return ListTile(
           title: Text(canciones[index].nombre),
           subtitle: Text(canciones[index].artista),
-          leading: Image.asset('/disco.png'),
+          leading: Image.asset('assets/disco.png'),
           trailing: Icon(
             Icons.play_arrow,
             size: 30,
