@@ -28,7 +28,11 @@ class _DrawerPageState extends State<DrawerPage> {
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Perfil'),
-              onTap: () {},
+              onTap: () {
+                setState(() {
+                  Navigator.of(context).pushNamed('/Perfil');
+                });
+              },
             ),
             ListTile(
               leading: const Icon(Icons.home),
@@ -43,6 +47,21 @@ class _DrawerPageState extends State<DrawerPage> {
             ListTile(
               leading: const Icon(Icons.question_mark),
               title: const Text('Términos'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Configuracion'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.offline_bolt),
+              title: const Text('Offline'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.subscriptions),
+              title: const Text('Suscripciones'),
               onTap: () {},
             ),
             ListTile(
