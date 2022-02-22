@@ -1,5 +1,11 @@
+import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
+import 'package:decibels/pages/offline_page.dart';
+import 'package:decibels/pages/profile_page.dart';
+import 'package:decibels/pages/settings_page.dart';
+import 'package:decibels/pages/subscriptions_page.dart';
+import 'package:decibels/pages/terms_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +30,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(),
+      routes: <String, WidgetBuilder>{
+        Perfil.routeName: (BuildContext context) => Perfil(),
+        Biblioteca.routeName: (BuildContext context) => Biblioteca(),
+        Terminos.routeName: (BuildContext context) => Terminos(),
+        Settings.routeName: (BuildContext context) => Settings(),
+        Offline.routeName: (BuildContext context) => Offline(),
+        Subscriptions.routeName: (BuildContext context) => Subscriptions(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
