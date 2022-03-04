@@ -33,14 +33,14 @@ class Perfil extends StatelessWidget {
                   size: 110,
                 ),
                 Text(
-                  "Usuario",
+                  user.displayName!,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,
                       fontSize: 20),
                 ),
                 Text(
-                  "Correo@ejemplo.com",
+                  user.email!,
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.blue),
                 ),
@@ -52,7 +52,7 @@ class Perfil extends StatelessWidget {
             siguiendpo: 15,
           ),
           Descripcion(
-            text: "Informacion que pondra el usuario",
+            text: 'Teléfono: ${user.phoneNumber}',
           ),
           Padding(
             padding: EdgeInsets.all(50),
