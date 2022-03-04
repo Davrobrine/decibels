@@ -87,6 +87,23 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/Registro');
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(50),
+            ),
+            icon: const FaIcon(
+              FontAwesomeIcons.user,
+              size: 32,
+            ),
+            label: const Text(
+              'Registrarse',
+              style: TextStyle(fontSize: 24),
+            ),
+          )
         ],
       ),
     );
