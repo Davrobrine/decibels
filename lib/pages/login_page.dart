@@ -1,3 +1,5 @@
+import 'package:decibels/classes/authenticator.dart';
+
 import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -62,8 +64,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
-            onPressed: () {
-              signInWithGoogle();
+            onPressed: () async {
+              User? user =
+                  await Authenticator.signInWithGoogle(context: context);
+
+              print(user?.displayName);
             },
             style: ElevatedButton.styleFrom(
               primary: const Color(0xffdb4a39),
@@ -104,24 +109,5 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }

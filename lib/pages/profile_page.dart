@@ -1,14 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Perfil extends StatelessWidget {
   static const String routeName = "/Perfil";
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: new Text("Decibels"),
+        title: const Center(
+          child: Text("Decibels"),
         ),
       ),
       body: Column(
@@ -27,7 +29,7 @@ class Perfil extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 UserFoto(
-                  assetImage: 'assets/persona1.jpg',
+                  assetImage: user.photoURL.toString(),
                   size: 110,
                 ),
                 Text(
@@ -169,7 +171,7 @@ class UserFoto extends StatelessWidget {
       height: this.size,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage(this.assetImage), fit: BoxFit.cover),
+            image: NetworkImage(this.assetImage), fit: BoxFit.cover),
         shape: BoxShape.circle,
         border: Border.all(color: Colors.blue, width: 4),
       ),
