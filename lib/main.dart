@@ -3,6 +3,7 @@ import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
 import 'package:decibels/pages/offline_page.dart';
 import 'package:decibels/pages/profile_page.dart';
+import 'package:decibels/pages/register_page.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:decibels/pages/subscriptions_page.dart';
 import 'package:decibels/pages/terms_page.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         Settings.routeName: (BuildContext context) => Settings(),
         Offline.routeName: (BuildContext context) => Offline(),
         Subscriptions.routeName: (BuildContext context) => Subscriptions(),
+        RegisterPage.routeName: (BuildContext context) => RegisterPage(),
       },
       debugShowCheckedModeBanner: false,
     );

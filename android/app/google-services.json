@@ -19,7 +19,7 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.decibels",
-            "certificate_hash": "60:AE:E2:F0:E9:4D:B1:2D:06:4C:7A:A8:75:4B:D0:E5:F2:C5:E0:59: "
+            "certificate_hash": "85f6a78e53f382e0bdfa68f994914d44c4f4607d"
           }
         },
         {
@@ -36,6 +36,14 @@
           "android_info": {
             "package_name": "com.example.decibels",
             "certificate_hash": "fe655b71bcf5359fc61658e064ddeb228dcbb422"
+          }
+        },
+        {
+          "client_id": "26151793746-tq93luv6ardo3iqecqj0tm9273hjdmug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.decibels",
+            "certificate_hash": "60aee2f0e94db12d064c7aa8754bd0e5f2c5e059"
           }
         },
         {
