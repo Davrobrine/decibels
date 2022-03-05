@@ -7,9 +7,11 @@ class Perfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: Center(
-          child: new Text("Decibels"),
+          child: new Text("Perfil"),
         ),
+        backgroundColor: Color.fromARGB(118, 31, 89, 128),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -34,23 +36,23 @@ class Perfil extends StatelessWidget {
                   "Usuario",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                      color: Colors.white,
                       fontSize: 20),
                 ),
                 Text(
                   "Correo@ejemplo.com",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue),
+                      fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ],
             ),
           ),
           ConeccionGeneral(
-            suscriociones: 20,
-            siguiendpo: 15,
+            suscripciones: 20,
+            siguiendo: 15,
           ),
           Descripcion(
-            text: "Informacion que pondra el usuario",
+            text: "Informacion del usuario",
           ),
           Padding(
             padding: EdgeInsets.all(50),
@@ -70,8 +72,8 @@ class botonajuste extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      foregroundColor: Colors.cyanAccent,
-      onPressed: null,
+      foregroundColor: Colors.white,
+      onPressed:(){},
       label: Text(
         'Ajustes',
         style: TextStyle(color: Colors.white),
@@ -91,33 +93,33 @@ class Descripcion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(10),
       child: Text(this.text),
     );
   }
 }
 
 class ConeccionGeneral extends StatelessWidget {
-  final int suscriociones, siguiendpo;
+  final int suscripciones, siguiendo;
   const ConeccionGeneral({
     Key? key,
-    required this.suscriociones,
-    required this.siguiendpo,
+    required this.suscripciones,
+    required this.siguiendo,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(40, 0, 255, 0),
-      padding: EdgeInsets.symmetric(vertical: 10),
+      color: Color.fromARGB(118, 31, 89, 128),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           conecciones(
             text: 'suscripciones',
-            numero: this.suscriociones,
+            numero: this.suscripciones,
           ),
-          conecciones(text: "Siguiendo", numero: this.siguiendpo),
+          conecciones(text: "Siguiendo", numero: this.siguiendo),
         ],
       ),
     );
@@ -171,7 +173,7 @@ class UserFoto extends StatelessWidget {
         image: DecorationImage(
             image: AssetImage(this.assetImage), fit: BoxFit.cover),
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.blue, width: 4),
+        border: Border.all(color: Color.fromARGB(255, 54, 127, 187), width: 4),
       ),
       margin: EdgeInsets.only(bottom: 10),
     );

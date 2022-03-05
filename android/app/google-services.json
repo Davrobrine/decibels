@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "26151793746",
+    "firebase_url": "https://decibels-3361d-default-rtdb.firebaseio.com",
     "project_id": "decibels-3361d",
     "storage_bucket": "decibels-3361d.appspot.com"
   },
@@ -14,11 +15,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "26151793746-9govvab20iv7gjc8omcm4bhdnm17s65f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.decibels",
+            "certificate_hash": "60:AE:E2:F0:E9:4D:B1:2D:06:4C:7A:A8:75:4B:D0:E5:F2:C5:E0:59: "
+          }
+        },
+        {
           "client_id": "26151793746-g6dbp1cvccribfq2k53tphqr7i2d8ivl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.decibels",
             "certificate_hash": "bc471fbe6a7879215b90339d3c807a35b766190f"
+          }
+        },
+        {
+          "client_id": "26151793746-jmrjraah4699htakfh0hk8kpqku8v0tq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.decibels",
+            "certificate_hash": "fe655b71bcf5359fc61658e064ddeb228dcbb422"
           }
         },
         {

@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -34,26 +35,48 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           Image.asset('assets/decibels.png'),
           const SizedBox(height: 20),
-          TextField(
+
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border:Border.all(color: Colors.blueGrey),
+            ),
+          child: TextField(
             controller: _emailController,
             cursorColor: Colors.white,
             textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(label: Text('Email')),
+            decoration: const InputDecoration(
+               icon: Icon(Icons.email),
+              label: Text('Email')
+              ),
+
           ),
+          ),
+
           const SizedBox(height: 4),
-          TextField(
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border:Border.all(color: Colors.blueGrey),
+        ),
+          child: TextField(
+
             controller: _passwordController,
             textInputAction: TextInputAction.done,
-            decoration: const InputDecoration(label: Text('Contraseña')),
+            decoration: const InputDecoration(
+              icon: Icon(Icons.password),
+              label: Text('Contraseña')
+            ),
             obscureText: true,
           ),
+      ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              primary: Colors.black54,
+              primary: Colors.lightBlueAccent,
               minimumSize: const Size.fromHeight(50),
             ),
-            icon: const Icon(Icons.lock_open, size: 32),
+            icon: const Icon(Icons.login, size: 32),
             label: const Text(
               'Iniciar Sesion',
               style: TextStyle(fontSize: 24),
@@ -66,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               signInWithGoogle();
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffdb4a39),
+              primary:  Colors.blue,
               minimumSize: const Size.fromHeight(50),
             ),
             icon: const FaIcon(

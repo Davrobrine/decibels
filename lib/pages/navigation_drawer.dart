@@ -16,14 +16,19 @@ class _DrawerPageState extends State<DrawerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Decibels'),
+        ///centerTitle: new Text('Decibels'),
+          title: Center(
+          child: new Text("DECIBELS"),
+        ),
+        backgroundColor:Color.fromARGB(118, 31, 89, 128),
+                 
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 186, 198, 206),
+                color: Color.fromARGB(118, 31, 89, 128),
               ),
               child: Image.asset('assets/decibels.png'),
             ),
@@ -44,7 +49,7 @@ class _DrawerPageState extends State<DrawerPage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.disc_full),
+              leading: const Icon(Icons.library_music),
               title: const Text('Biblioteca'),
               onTap: () {
                 Navigator.of(context).pushNamed('/Biblioteca');
@@ -59,20 +64,20 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Configuracion'),
+              title: const Text('Configuración'),
               onTap: () {
                 Navigator.of(context).pushNamed('/Configuracion');
               },
             ),
             ListTile(
-              leading: const Icon(Icons.offline_bolt),
+              leading: const Icon(Icons.cloud_off_outlined),
               title: const Text('Offline'),
               onTap: () {
                 Navigator.of(context).pushNamed('/Offline');
               },
             ),
             ListTile(
-              leading: const Icon(Icons.question_mark),
+              leading: const Icon(Icons.plagiarism_rounded),
               title: const Text('Términos'),
               onTap: () {
                 Navigator.of(context).pushNamed('/Terminos');
