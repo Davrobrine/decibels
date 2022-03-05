@@ -8,8 +8,9 @@ class Terminos extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: new Text("Decibels"),
+          child: new Text("Términos y Condiciones"),
         ),
+         backgroundColor:Color.fromARGB(118, 31, 89, 128),
       ),
     );
   }

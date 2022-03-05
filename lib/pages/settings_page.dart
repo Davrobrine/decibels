@@ -5,39 +5,42 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+ 
+  return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Configuración"),
+        title:  Text("Configuración"),
+         backgroundColor:Color.fromARGB(118, 31, 89, 128),
       ),
+     
       body: Column(
         children: [
-          new Container(
-            child: new Container(
-              child: Image.asset('assets/user.png', width: 100),
-            ),
-          ),
-
-          Row(
+           Row(
             children: [
               Container(
                 child: RaisedButton(
+                  
                   child: Icon(Icons.add_circle),
                   onPressed: () {},
                 ),
               ),
               Container(
-                child: new Text(" Cambiar imagen  "),
+                child: new Text(" Cambiar imagen"),
               ),
             ],
           ),
 
           //text ingreso nombre
+          Row(
+            children:[
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              border:Border.all(color: Colors.blue),
+            ),
+          
             child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.supervised_user_circle),
-                labelText: "Nombre",
+             
+                labelText: "Cambiar nombre",
               ),
               onChanged: (value) {},
             ),
@@ -45,33 +48,42 @@ class Settings extends StatelessWidget {
 
           Container(
             child: RaisedButton(
-              child: Text("Cambiar Nombre de usuario"),
+              child: Icon(Icons.save),
               onPressed: () {},
             ),
           ),
+            ],
+          ),
           //Text Ingreso contraseña
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              border:Border.all(color: Colors.blue),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 1),
             child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.password),
-                labelText: "Contraseña",
+
+              
+                labelText: "Cambiar Contraseña",
               ),
               onChanged: (value) {},
             ),
           ),
           Container(
             child: RaisedButton(
-              child: Text("Cambiar Contraseña"),
+              child: Icon(Icons.save),
               onPressed: () {},
             ),
           ),
           //Text ingreso descripcion
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              border:Border.all(color: Colors.blue),
+                ),
+          
             child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.text_fields_sharp),
+              
                 labelText: "Descripcion",
               ),
               onChanged: (value) {},
@@ -79,21 +91,16 @@ class Settings extends StatelessWidget {
           ),
           Container(
             child: RaisedButton(
-              child: Text("Cambiar acerca de mi"),
+              child: Icon(Icons.save),
               onPressed: () {},
             ),
           ),
           Container(
             child: new Text("Se enviará un correo de verificación"),
           ),
-          Container(
-            child: RaisedButton(
-              child: Text("Guardar Cambios"),
-              onPressed: () {},
-            ),
-          ),
         ],
       ),
     );
+      
   }
 }
