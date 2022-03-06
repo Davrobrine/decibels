@@ -8,8 +8,9 @@ class Biblioteca extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: new Text("Decibels"),
+          child: new Text("Biblioteca"),
         ),
+         backgroundColor:Color.fromARGB(118, 31, 89, 128),
       ),
       body: ListaBiblioteca(),
     );
@@ -49,11 +50,12 @@ class _ListaBibliotecaState extends State<ListaBiblioteca> {
           title: Text(canciones[index].nombre),
           subtitle: Text(canciones[index].artista),
           leading: Image.asset('assets/disco.png'),
-          trailing: Icon(
-            Icons.play_arrow,
-            size: 30,
+          trailing: RaisedButton(
+             child: new Icon(Icons.play_arrow_outlined),
+            onPressed: () {},
+                        
           ),
-        );
+         );
       },
       itemCount: canciones.length,
     );

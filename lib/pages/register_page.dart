@@ -1,3 +1,8 @@
+import 'dart:ffi';
+import 'package:decibels/pages/firebase.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -59,7 +64,18 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                UserCredential user =
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: _emailTextController.text,
+                  password: _passwordTextController.text,
+                );
+                userSetup(
+                    _nameTextController.text,
+                    _passwordTextController.text,
+                    _emailTextController.text,
+                    _phoneTextController.text);
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
               ),
