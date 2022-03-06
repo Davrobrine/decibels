@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
           const SizedBox(height: 9),
           Text(
             userText,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+            style:const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
           ),
         ],
       ),

@@ -7,13 +7,14 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Configuración"),
+        title: Text("Configuración"),
+        backgroundColor: Color.fromARGB(118, 31, 89, 128),
       ),
       body: Column(
         children: [
-          new Container(
-            child: new Container(
-              child: Image.asset('assets/user.png', width: 100),
+          Container(
+            child: Container(
+              child: Image.asset('assets/user.png', width: 70),
             ),
           ),
 
@@ -33,10 +34,13 @@ class Settings extends StatelessWidget {
 
           //text ingreso nombre
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.supervised_user_circle),
+                // icon: Icon(Icons.supervised_user_circle),
                 labelText: "Nombre",
               ),
               onChanged: (value) {},
@@ -51,10 +55,13 @@ class Settings extends StatelessWidget {
           ),
           //Text Ingreso contraseña
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 1),
             child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.password),
+                // icon: Icon(Icons.password),
                 labelText: "Contraseña",
               ),
               onChanged: (value) {},
@@ -68,10 +75,12 @@ class Settings extends StatelessWidget {
           ),
           //Text ingreso descripcion
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.blue),
+            ),
             child: TextField(
               decoration: InputDecoration(
-                icon: Icon(Icons.text_fields_sharp),
+                //icon: Icon(Icons.text_fields_sharp),
                 labelText: "Descripcion",
               ),
               onChanged: (value) {},

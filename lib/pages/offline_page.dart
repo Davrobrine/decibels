@@ -10,6 +10,7 @@ class Offline extends StatelessWidget {
         title: Center(
           child: new Text("Offline"),
         ),
+         backgroundColor:Color.fromARGB(118, 31, 89, 128),
       ),
       body: ListaBiblioteca(),
     );
@@ -44,8 +45,11 @@ class _ListaBibliotecaState extends State<ListaBiblioteca> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+
       itemBuilder: (context, index) {
         return ListTile(
+          
+
           title: Text(canciones[index].nombre),
           subtitle: Text(canciones[index].artista),
           leading: Icon(Icons.cloud_download),
@@ -53,6 +57,9 @@ class _ListaBibliotecaState extends State<ListaBiblioteca> {
             child: new Icon(Icons.play_arrow_outlined),
             onPressed: () {},
           ),
+
+
+
         );
       },
       itemCount: canciones.length,
