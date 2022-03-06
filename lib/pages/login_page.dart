@@ -29,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,41 +36,33 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           Image.asset('assets/decibels.png'),
           const SizedBox(height: 20),
-
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              border:Border.all(color: Colors.blueGrey),
+              border: Border.all(color: Colors.blueGrey),
             ),
-          child: TextField(
-            controller: _emailController,
-            cursorColor: Colors.white,
-            textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
-               icon: Icon(Icons.email),
-              label: Text('Email')
-              ),
-
+            child: TextField(
+              controller: _emailController,
+              cursorColor: Colors.white,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.email), label: Text('Email')),
+            ),
           ),
-          ),
-
           const SizedBox(height: 4),
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border:Border.all(color: Colors.blueGrey),
-        ),
-          child: TextField(
-
-            controller: _passwordController,
-            textInputAction: TextInputAction.done,
-            decoration: const InputDecoration(
-              icon: Icon(Icons.password),
-              label: Text('Contraseña')
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.blueGrey),
             ),
-            obscureText: true,
+            child: TextField(
+              controller: _passwordController,
+              textInputAction: TextInputAction.done,
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.password), label: Text('Contraseña')),
+              obscureText: true,
+            ),
           ),
-      ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
@@ -94,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
               print(user?.displayName);
             },
             style: ElevatedButton.styleFrom(
-              primary:  Colors.blue,
+              primary: Colors.blue,
               minimumSize: const Size.fromHeight(50),
             ),
             icon: const FaIcon(
