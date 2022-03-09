@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
               print(user?.displayName);
             },
             style: ElevatedButton.styleFrom(
-              primary: Colors.blue,
+              primary: const Color(0xffDB4437),
               minimumSize: const Size.fromHeight(50),
             ),
             icon: const FaIcon(
