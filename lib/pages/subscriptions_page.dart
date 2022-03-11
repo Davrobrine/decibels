@@ -10,6 +10,7 @@ class Subscriptions extends StatelessWidget {
         title: Center(
           child: new Text("Lista de subscripciones"),
         ),
+         backgroundColor:Color.fromARGB(118, 31, 89, 128),
       ),
       body: ListaBiblioteca(),
     );
@@ -46,6 +47,7 @@ class _ListaBibliotecaState extends State<ListaBiblioteca> {
     return ListView.builder(
       itemBuilder: (context, index) {
         return ListTile(
+
           title: Text(canciones[index].nombre),
           subtitle: Text(canciones[index].artista),
           leading: Icon(Icons.supervised_user_circle),

@@ -3,12 +3,14 @@ import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
 import 'package:decibels/pages/offline_page.dart';
 import 'package:decibels/pages/profile_page.dart';
+import 'package:decibels/pages/register_page.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:decibels/pages/subscriptions_page.dart';
 import 'package:decibels/pages/terms_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'DECIBLES',
       navigatorKey: navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
         Settings.routeName: (BuildContext context) => Settings(),
         Offline.routeName: (BuildContext context) => Offline(),
         Subscriptions.routeName: (BuildContext context) => Subscriptions(),
+        RegisterPage.routeName: (BuildContext context) => RegisterPage(),
       },
       debugShowCheckedModeBanner: false,
     );

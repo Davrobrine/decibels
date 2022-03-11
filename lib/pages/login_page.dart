@@ -1,3 +1,5 @@
+import 'package:decibels/classes/authenticator.dart';
+
 import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,26 +36,40 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           Image.asset('assets/decibels.png'),
           const SizedBox(height: 20),
-          TextField(
-            controller: _emailController,
-            cursorColor: Colors.white,
-            textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(label: Text('Email')),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.blueGrey),
+            ),
+            child: TextField(
+              controller: _emailController,
+              cursorColor: Colors.white,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.email), label: Text('Email')),
+            ),
           ),
           const SizedBox(height: 4),
-          TextField(
-            controller: _passwordController,
-            textInputAction: TextInputAction.done,
-            decoration: const InputDecoration(label: Text('Contraseña')),
-            obscureText: true,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.blueGrey),
+            ),
+            child: TextField(
+              controller: _passwordController,
+              textInputAction: TextInputAction.done,
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.password), label: Text('Contraseña')),
+              obscureText: true,
+            ),
           ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              primary: Colors.black54,
+              primary: Colors.lightBlueAccent,
               minimumSize: const Size.fromHeight(50),
             ),
-            icon: const Icon(Icons.lock_open, size: 32),
+            icon: const Icon(Icons.login, size: 32),
             label: const Text(
               'Iniciar Sesion',
               style: TextStyle(fontSize: 24),
@@ -62,11 +78,14 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 20),
           ElevatedButton.icon(
-            onPressed: () {
-              signInWithGoogle();
+            onPressed: () async {
+              User? user =
+                  await Authenticator.signInWithGoogle(context: context);
+
+              print(user?.displayName);
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffdb4a39),
+              primary: const Color(0xffDB4437),
               minimumSize: const Size.fromHeight(50),
             ),
             icon: const FaIcon(
@@ -82,6 +101,23 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/Registro');
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(50),
+            ),
+            icon: const FaIcon(
+              FontAwesomeIcons.user,
+              size: 32,
+            ),
+            label: const Text(
+              'Registrarse',
+              style: TextStyle(fontSize: 24),
+            ),
+          )
         ],
       ),
     );
@@ -104,24 +140,5 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
-
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
