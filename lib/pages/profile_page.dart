@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,60 +8,75 @@ class Perfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: new Text("Perfil"),
-        ),
-        backgroundColor: Color.fromARGB(118, 31, 89, 128),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            height: 190,
-            padding: EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/fondo.jpg'),
-                fit: BoxFit.cover,
+    final userId = user.uid;
+    CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('users');
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: usersCollection.doc(userId).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasData) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          return Scaffold(
+            appBar: AppBar(
+              title: const Center(
+                child: Text("Perfil"),
               ),
+              backgroundColor: const Color.fromARGB(118, 31, 89, 128),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                UserFoto(
-                  assetImage: user.photoURL.toString(),
-                  size: 110,
+                Container(
+                  height: 190,
+                  padding: const EdgeInsets.only(bottom: 20),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/fondo.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      UserFoto(
+                        assetImage: data['photourl'],
+                        size: 110,
+                      ),
+                      Text(
+                        data['name'],
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 20),
+                      ),
+                      Text(
+                        data['email'],
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-                Text(
-                  user.displayName!,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 20),
+                ConeccionGeneral(
+                  suscripciones: 20,
+                  siguiendo: 15,
                 ),
-                Text(
-                  user.email!,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                Descripcion(
+                  text: 'Teléfono: ${data['phone']}',
                 ),
+                Padding(
+                  padding: EdgeInsets.all(50),
+                ),
+                botonajuste(),
               ],
             ),
-          ),
-          ConeccionGeneral(
-            suscripciones: 20,
-            siguiendo: 15,
-          ),
-          Descripcion(
-            text: 'Teléfono: ${user.phoneNumber}',
-          ),
-          Padding(
-            padding: EdgeInsets.all(50),
-          ),
-          botonajuste(),
-        ],
-      ),
+          );
+        }
+        return const Text('Cargando...');
+      },
     );
   }
 }
@@ -74,7 +90,7 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-      onPressed:(){},
+      onPressed: () {},
       label: Text(
         'Ajustes',
         style: TextStyle(color: Colors.white),
