@@ -5,12 +5,17 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 class Biblioteca extends StatelessWidget {
+  final String userId;
+  Biblioteca(this.userId, {Key? key}) : super(key: key);
+
   static const String routeName = "/Biblioteca";
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: MusicApp(),
+
     );
   }
 }
@@ -74,6 +79,7 @@ class _MusicAppState extends State<MusicApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -184,6 +190,7 @@ class _MusicAppState extends State<MusicApp> {
           ),
         ],
       ),
+
     );
   }
 }
