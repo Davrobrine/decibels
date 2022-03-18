@@ -93,6 +93,7 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
+
       onPressed: () {
         // Navigator.pop(context);
         Navigator.push(
