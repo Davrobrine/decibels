@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
+  final String userId;
+  final CollectionReference usersCollection;
+  HomePage(this.userId, this.usersCollection, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-    final userId = user.uid;
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
-
     return FutureBuilder<DocumentSnapshot>(
       future: usersCollection.doc(userId).get(),
       builder:
@@ -36,7 +34,7 @@ class HomePage extends StatelessWidget {
             ),
           );
         }
-        return const Text('Cargando...');
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

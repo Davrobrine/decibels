@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/pages/settings_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Perfil extends StatelessWidget {
+  final String userId;
+  final CollectionReference usersCollection;
+  Perfil(this.userId, this.usersCollection, {Key? key}) : super(key: key);
+
   static const String routeName = "/Perfil";
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
-    final userId = user.uid;
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('users');
-
     return FutureBuilder<DocumentSnapshot>(
       future: usersCollection.doc(userId).get(),
       builder:
@@ -60,42 +61,52 @@ class Perfil extends StatelessWidget {
                     ],
                   ),
                 ),
-                ConeccionGeneral(
+                const ConeccionGeneral(
                   suscripciones: 20,
                   siguiendo: 15,
                 ),
                 Descripcion(
                   text: 'Teléfono: ${data['phone']}',
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(50),
                 ),
-                botonajuste(),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
+                  child: botonajuste(userId),
+                )
               ],
             ),
           );
         }
-        return const Text('Cargando...');
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
 }
 
 class botonajuste extends StatelessWidget {
-  const botonajuste({
-    Key? key,
-  }) : super(key: key);
+  final String userId;
+  const botonajuste(this.userId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-      onPressed: () {},
-      label: Text(
+      onPressed: () {
+        // Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Configuracion(userId),
+          ),
+        );
+      },
+      label: const Text(
         'Ajustes',
         style: TextStyle(color: Colors.white),
       ),
-      icon: Icon(Icons.edit),
+      icon: const Icon(Icons.edit),
       elevation: 10,
     );
   }
@@ -127,8 +138,8 @@ class ConeccionGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(118, 31, 89, 128),
-      padding: EdgeInsets.symmetric(vertical: 5),
+      color: const Color.fromARGB(118, 31, 89, 128),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
