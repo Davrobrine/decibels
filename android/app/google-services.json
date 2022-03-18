@@ -39,6 +39,14 @@
           }
         },
         {
+          "client_id": "26151793746-kb6pbl1p1l1pndu423k6bi77stsl7i3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.decibels",
+            "certificate_hash": "24075d3431f8e705e65456d9e8134c0a2cffb6f6"
+          }
+        },
+        {
           "client_id": "26151793746-tq93luv6ardo3iqecqj0tm9273hjdmug.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
