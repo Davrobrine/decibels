@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Settings extends StatelessWidget {
+class Configuracion extends StatelessWidget {
+  final String userId;
+  Configuracion(this.userId, {Key? key}) : super(key: key);
+
   static const String routeName = "/Configuracion";
 
   @override
