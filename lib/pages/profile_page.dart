@@ -74,7 +74,7 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-      onPressed:(){},
+      onPressed: () {},
       label: Text(
         'Ajustes',
         style: TextStyle(color: Colors.white),
