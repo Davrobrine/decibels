@@ -1,7 +1,6 @@
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
-import 'package:decibels/pages/offline_page.dart';
 import 'package:decibels/pages/profile_page.dart';
 import 'package:decibels/pages/register_page.dart';
 import 'package:decibels/pages/settings_page.dart';
@@ -34,11 +33,10 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(),
       routes: <String, WidgetBuilder>{
         DrawerPage.routeName: (BuildContext context) => DrawerPage(),
-        Perfil.routeName: (BuildContext context) => Perfil(),
-        Biblioteca.routeName: (BuildContext context) => Biblioteca(),
+        // Perfil.routeName: (BuildContext context) => Perfil(),
+        // Biblioteca.routeName: (BuildContext context) => Biblioteca(),
         Terminos.routeName: (BuildContext context) => Terminos(),
-        Settings.routeName: (BuildContext context) => Settings(),
-        Offline.routeName: (BuildContext context) => Offline(),
+        // Settings.routeName: (BuildContext context) => Settings(),
         Subscriptions.routeName: (BuildContext context) => Subscriptions(),
         RegisterPage.routeName: (BuildContext context) => RegisterPage(),
       },
