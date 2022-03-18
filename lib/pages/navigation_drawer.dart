@@ -3,6 +3,7 @@ import 'package:decibels/pages/home_page.dart';
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/profile_page.dart';
 import 'package:decibels/pages/settings_page.dart';
+import 'package:decibels/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
