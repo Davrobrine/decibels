@@ -91,17 +91,15 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-
       onPressed: () {
         // Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Configuracion(userId),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => Configuracion(userId),
+        //   ),
+        // );
       },
-
       label: const Text(
         'Ajustes',
         style: TextStyle(color: Colors.white),
