@@ -71,10 +71,6 @@ class Perfil extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(50),
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-                  child: botonajuste(userId),
-                )
               ],
             ),
           );
@@ -93,16 +89,7 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-
-      onPressed: () {
-        // Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Configuracion(userId),
-          ),
-        );
-      },
+      onPressed: () {},
       label: const Text(
         'Ajustes',
         style: TextStyle(color: Colors.white),
