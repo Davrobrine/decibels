@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/classes/DataController.dart';
 import 'package:decibels/pages/home_page.dart';
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/profile_page.dart';
+import 'package:decibels/pages/search.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class DrawerPage extends StatefulWidget {
   DrawerPage({Key? key}) : super(key: key);
@@ -31,6 +34,24 @@ class _DrawerPageState extends State<DrawerPage> {
         title: const Center(
           child: Text("DECIBELS"),
         ),
+        actions: <Widget>[
+          GetBuilder<DataController>(
+            init: DataController(),
+            builder: (val) {
+              return IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Busqueda(),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.search),
+              );
+            },
+          )
+        ],
         backgroundColor: const Color.fromARGB(118, 31, 89, 128),
       ),
       drawer: Drawer(
@@ -40,7 +61,7 @@ class _DrawerPageState extends State<DrawerPage> {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(118, 31, 89, 128),
               ),
-              child: Image.asset('assets/decibels.png'),
+              child: Image.asset('assets/logof.png'),
             ),
             ListTile(
               leading: const Icon(Icons.person),
