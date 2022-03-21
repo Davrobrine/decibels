@@ -1,7 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/classes/DataController.dart';
 import 'package:decibels/pages/home_page.dart';
+import 'package:decibels/pages/library_page.dart';
+import 'package:decibels/pages/profile_page.dart';
+import 'package:decibels/pages/search.dart';
+import 'package:decibels/pages/settings_page.dart';
+import 'package:decibels/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class DrawerPage extends StatefulWidget {
   DrawerPage({Key? key}) : super(key: key);
@@ -12,16 +20,39 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerPageState extends State<DrawerPage> {
+  final user = FirebaseAuth.instance.currentUser!;
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+
   @override
   Widget build(BuildContext context) {
+    final userId = user.uid;
+
     return Scaffold(
       appBar: AppBar(
         ///centerTitle: new Text('Decibels'),
-          title: Center(
-          child: new Text("DECIBELS"),
+        title: const Center(
+          child: Text("BEATSMOON"),
         ),
-        backgroundColor:Color.fromARGB(118, 31, 89, 128),
-                 
+        actions: <Widget>[
+          GetBuilder<DataController>(
+            init: DataController(),
+            builder: (val) {
+              return IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Busqueda(),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.search),
+              );
+            },
+          )
+        ],
+        backgroundColor: const Color.fromARGB(118, 31, 89, 128),
       ),
       drawer: Drawer(
         child: ListView(
@@ -30,29 +61,30 @@ class _DrawerPageState extends State<DrawerPage> {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(118, 31, 89, 128),
               ),
-              child: Image.asset('assets/decibels.png'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Página principal'),
-              onTap: () {
-                Navigator.of(context).pushNamed('/Inicio');
-              },
+              child: Image.asset('assets/logof.png'),
             ),
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Perfil'),
               onTap: () {
-                setState(() {
-                  Navigator.of(context).pushNamed('/Perfil');
-                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Perfil(userId),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.library_music),
               title: const Text('Biblioteca'),
               onTap: () {
-                Navigator.of(context).pushNamed('/Biblioteca');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Biblioteca(userId),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -66,14 +98,13 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.settings),
               title: const Text('Configuración'),
               onTap: () {
-                Navigator.of(context).pushNamed('/Configuracion');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.cloud_off_outlined),
-              title: const Text('Offline'),
-              onTap: () {
-                Navigator.of(context).pushNamed('/Offline');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        Configuracion(userId, usersCollection),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -93,7 +124,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ],
         ),
       ),
-      body: HomePage(),
+      body: HomePage(userId, usersCollection),
     );
   }
 }
