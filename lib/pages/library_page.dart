@@ -3,6 +3,18 @@ import 'package:decibels/pages/customList.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
+Future<void> downloadURLExample() async {
+  String downloadURL = await firebase_storage.FirebaseStorage.instance
+      .ref('intento/Nunca Es Suficiente.mp3')
+      .getDownloadURL();
+  print(downloadURL);
+  // Within your widgets:
+  // Image.network(downloadURL);
+}
+
+AudioPlayer audioPlayer = new AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
 
 class Biblioteca extends StatelessWidget {
   final String userId;
@@ -12,10 +24,8 @@ class Biblioteca extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: MusicApp(),
-
     );
   }
 }
@@ -28,12 +38,21 @@ class MusicApp extends StatefulWidget {
 class _MusicAppState extends State<MusicApp> {
   List musicList = [
     {
-      'title': "A Very Happy Christmas",
-      'singer': "Michael Ramir",
+      'title': "Nunca es suficiente",
+      'singer': "Natalia Lafourcade",
       'url':
-          "https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3",
-      'coverUrl': "https://i.ytimg.com/vi/HGaf0BAC1hI/hqdefault.jpg"
-    }
+          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2FNunca%20Es%20Suficiente.mp3?alt=media&token=43d5c8a4-f1f5-4872-9939-a9a66c031a21",
+      'coverUrl':
+          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Fnunca_es_suficiente.jpg?alt=media&token=406fb9aa-96a9-491c-8107-0fa888b82d04"
+    },
+    {
+      'title': "La leyenda del hada y el mago",
+      'singer': "Rata blanca",
+      'url':
+          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Fla%20leyenda%20del%20hada%20y%20el%20mago.mp3?alt=media&token=df2bcdf9-59cc-4bfd-997d-e4142d46a444",
+      'coverUrl':
+          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Frata_blamca.jpg?alt=media&token=3246e394-dceb-45c4-921e-7a95895f6d03"
+    },
   ];
 
   String currentTitle = "";
@@ -41,7 +60,6 @@ class _MusicAppState extends State<MusicApp> {
   String currentSinger = "";
   IconData btnIcon = Icons.play_arrow;
 
-  AudioPlayer audioPlayer = new AudioPlayer(mode: PlayerMode.MEDIA_PLAYER);
   bool isPlaying = false;
   String currentSong = "";
   Duration duration = new Duration();
@@ -65,7 +83,7 @@ class _MusicAppState extends State<MusicApp> {
         });
       }
     }
-    audioPlayer.onAudioPositionChanged.listen((event) {
+    audioPlayer.onDurationChanged.listen((event) {
       setState(() {
         duration = event;
       });
@@ -79,7 +97,6 @@ class _MusicAppState extends State<MusicApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -98,6 +115,20 @@ class _MusicAppState extends State<MusicApp> {
                 itemBuilder: (context, index) => customListTitle(
                       onTap: () {
                         playMusic(musicList[index]['url']);
+
+                        if (isPlaying) {
+                          audioPlayer.pause();
+                          setState(() {
+                            btnIcon = Icons.pause;
+                            isPlaying = false;
+                          });
+                        } else {
+                          audioPlayer.resume();
+                          setState(() {
+                            btnIcon = Icons.play_arrow;
+                            isPlaying = true;
+                          });
+                        }
                         setState(() {
                           currentTitle = musicList[index]['title'];
                           currentCover = musicList[index]['coverUrl'];
@@ -122,7 +153,9 @@ class _MusicAppState extends State<MusicApp> {
                   value: position.inSeconds.toDouble(),
                   min: 0.0,
                   max: duration.inSeconds.toDouble(),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    seekToSec(value.toInt());
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -160,6 +193,19 @@ class _MusicAppState extends State<MusicApp> {
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 14.0),
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  position.toString().split(".")[0],
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                Text(
+                                  duration.toString().split(".")[0],
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -190,7 +236,11 @@ class _MusicAppState extends State<MusicApp> {
           ),
         ],
       ),
-
     );
   }
+}
+
+void seekToSec(int sec) {
+  Duration newPos = Duration(seconds: sec);
+  audioPlayer.seek(newPos);
 }
