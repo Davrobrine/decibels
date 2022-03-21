@@ -101,7 +101,8 @@ class _DrawerPageState extends State<DrawerPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Configuracion(userId),
+                    builder: (context) =>
+                        Configuracion(userId, usersCollection),
                   ),
                 );
               },
