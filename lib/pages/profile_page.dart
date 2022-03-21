@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 class Perfil extends StatelessWidget {
   final String userId;
-  final CollectionReference usersCollection;
-  Perfil(this.userId, this.usersCollection, {Key? key}) : super(key: key);
+  // final CollectionReference usersCollection;
+  Perfil(this.userId, {Key? key}) : super(key: key);
 
   static const String routeName = "/Perfil";
-  final user = FirebaseAuth.instance.currentUser!;
+  final actualUser = FirebaseAuth.instance.currentUser!;
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +73,6 @@ class Perfil extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(50),
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-                  child: botonajuste(userId),
-                )
               ],
             ),
           );
@@ -93,15 +91,14 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-
       onPressed: () {
         // Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Configuracion(userId),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => Configuracion(userId),
+        //   ),
+        // );
       },
       label: const Text(
         'Ajustes',

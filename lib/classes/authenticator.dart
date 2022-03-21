@@ -30,10 +30,19 @@ class Authenticator {
             await authenticator.signInWithCredential(credential);
         user = userCredential.user;
 
-        addUser(user);
+        usersCollection.get().then((QuerySnapshot querySnapshot) {
+          querySnapshot.docs.forEach((element) {
+            if (element.id != user!.uid) {
+              addUser(user);
+              navigatorKey.currentState!.popUntil((route) => route.isFirst);
+            } else {
+              navigatorKey.currentState!.popUntil((route) => route.isFirst);
+            }
+          });
+        });
 
-        navigatorKey.currentState!.popUntil((route) => route.isFirst);
-
+        // addUser(user);
+        // navigatorKey.currentState!.popUntil((route) => route.isFirst);
         return user;
       } on FirebaseAuthException catch (e) {
         print('Error en la autenticación');
