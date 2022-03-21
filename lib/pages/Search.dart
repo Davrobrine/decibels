@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:decibels/classes/DataController.dart';
+import 'package:decibels/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
@@ -24,7 +25,13 @@ class _BusquedaState extends State<Busqueda> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Get.to(null);
+              String userId = snapshotData.docs[index].get('userId');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Perfil(userId),
+                ),
+              );
             },
             child: ListTile(
               leading: CircleAvatar(
@@ -34,14 +41,14 @@ class _BusquedaState extends State<Busqueda> {
               ),
               title: Text(
                 snapshotData.docs[index].get('name'),
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 26.0),
               ),
               subtitle: Text(
                 snapshotData.docs[index].get('email'),
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0),

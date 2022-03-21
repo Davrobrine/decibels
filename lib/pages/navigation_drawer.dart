@@ -32,7 +32,7 @@ class _DrawerPageState extends State<DrawerPage> {
       appBar: AppBar(
         ///centerTitle: new Text('Decibels'),
         title: const Center(
-          child: Text("DECIBELS"),
+          child: Text("BEATSMOON"),
         ),
         actions: <Widget>[
           GetBuilder<DataController>(
@@ -70,7 +70,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Perfil(userId, usersCollection),
+                    builder: (context) => Perfil(userId),
                   ),
                 );
               },

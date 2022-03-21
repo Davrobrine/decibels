@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 
 class Perfil extends StatelessWidget {
   final String userId;
-  final CollectionReference usersCollection;
-  Perfil(this.userId, this.usersCollection, {Key? key}) : super(key: key);
+  // final CollectionReference usersCollection;
+  Perfil(this.userId, {Key? key}) : super(key: key);
 
   static const String routeName = "/Perfil";
-  final user = FirebaseAuth.instance.currentUser!;
+  final actualUser = FirebaseAuth.instance.currentUser!;
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,6 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
       foregroundColor: Colors.white,
-
       onPressed: () {
         // Navigator.pop(context);
         Navigator.push(
