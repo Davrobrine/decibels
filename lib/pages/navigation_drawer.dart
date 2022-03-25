@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerPage extends StatefulWidget {
   DrawerPage({Key? key}) : super(key: key);
@@ -31,8 +32,10 @@ class _DrawerPageState extends State<DrawerPage> {
     return Scaffold(
       appBar: AppBar(
         ///centerTitle: new Text('Decibels'),
+        backgroundColor: const Color(0xff208AAE),
         title: const Center(
           child: Text("BEATSMOON"),
+          
         ),
         actions: <Widget>[
           GetBuilder<DataController>(
@@ -52,14 +55,14 @@ class _DrawerPageState extends State<DrawerPage> {
             },
           )
         ],
-        backgroundColor: const Color.fromARGB(118, 31, 89, 128),
+       
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(118, 31, 89, 128),
+                color: const Color(0xff208AAE),
               ),
               child: Image.asset('assets/logof.png'),
             ),
@@ -111,7 +114,24 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.plagiarism_rounded),
               title: const Text('Términos'),
               onTap: () {
-                Navigator.of(context).pushNamed('/Terminos');
+              // Navigator.of(context).pushNamed('/Terminos');
+              launch('https://beatsmoon.000webhostapp.com/politics_privacy.html');
+              },
+            ),
+             ListTile(
+              leading: const Icon(Icons.web),
+              title: const Text('Nuestra WEB'),
+              onTap: () {
+              // Navigator.of(context).pushNamed('/Terminos');
+              launch('https://beatsmoon.000webhostapp.com/');
+              },
+            ),
+              ListTile(
+              leading: const Icon(Icons.radio),
+              title: const Text('Radio'),
+              onTap: () {
+              // Navigator.of(context).pushNamed('/Terminos');
+              launch('https://toluvaradio.000webhostapp.com/');
               },
             ),
             ListTile(
@@ -125,6 +145,7 @@ class _DrawerPageState extends State<DrawerPage> {
         ),
       ),
       body: HomePage(userId, usersCollection),
+      backgroundColor: const Color(0xff208AAE),
     );
   }
 }

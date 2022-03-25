@@ -16,6 +16,7 @@ class Perfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
+      
       future: usersCollection.doc(userId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -24,10 +25,11 @@ class Perfil extends StatelessWidget {
               snapshot.data!.data() as Map<String, dynamic>;
           return Scaffold(
             appBar: AppBar(
+             
               title: const Center(
                 child: Text("Perfil"),
               ),
-              backgroundColor: const Color.fromARGB(118, 31, 89, 128),
+               backgroundColor: const Color(0xff208AAE),
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -136,7 +138,7 @@ class ConeccionGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(118, 31, 89, 128),
+       color: const Color.fromARGB(118, 31, 89, 128),
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -163,11 +165,14 @@ class conecciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   
     final style = TextStyle(
-      color: Color.fromARGB(150, 0, 0, 0),
+      color: Color.fromARGB(150, 0, 0, 0)
     );
     return Column(
+       
       children: <Widget>[
+      
         Text(
           this.text.toUpperCase(),
           style: style,
@@ -178,6 +183,7 @@ class conecciones extends StatelessWidget {
         ),
       ],
     );
+    
   }
 }
 

@@ -42,7 +42,8 @@ dependencies:
   firebase_storage_web: ^3.2.10
   audioplayers: ^0.20.1
   get: ^4.6.1
-  get_storage: ^2.0.3  
+  get_storage: ^2.0.3 
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
