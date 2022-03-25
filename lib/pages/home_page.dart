@@ -16,8 +16,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference newsCollection =
-        FirebaseFirestore.instance.collection('news');
+    final Stream<QuerySnapshot> _newsCollection =
+        FirebaseFirestore.instance.collection('news').snapshots();
 
     return FutureBuilder<DocumentSnapshot>(
       future: widget.newsCollection.doc(widget.userId).get(),
@@ -44,14 +44,14 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset('assets/head.png'),
-                          Text(
+                          const Text(
                             'Más Popular',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 25.0,
                             ),
                           ),
-                          Text(
+                          const Text(
                             'Hoy',
                             style: TextStyle(
                                 color: Colors.white,
@@ -62,8 +62,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8.0),
                     child: Text(
                       'Canciones',
                       style: TextStyle(
@@ -75,101 +75,90 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                     height: 300,
                     width: 400,
-                    child: GetBuilder<DataController>(
-                      init: DataController(),
-                      builder: (value) {
-                        return FutureBuilder(
-                          future: value.getData('users'),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Center(
-                                  child: CircularProgressIndicator(
-                                      backgroundColor: Colors.black));
-                            } else {
-                              return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: data.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 150,
-                                            width: 150,
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    fit: BoxFit.contain,
-                                                    image: NetworkImage(
-                                                        data['photourl']))),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 8.0),
-                                            child: Container(
-                                              constraints:
-                                                  BoxConstraints(maxWidth: 150),
-                                              child: Text(
-                                                data['email'],
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20.0),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              data['name'],
-                                              style: TextStyle(
-                                                  color: Colors.grey.shade600,
-                                                  fontSize: 15),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                EvaIcons.star,
-                                                color: Colors.yellowAccent,
-                                              ),
-                                              Icon(
-                                                EvaIcons.star,
-                                                color: Colors.yellowAccent,
-                                              ),
-                                              Icon(
-                                                EvaIcons.star,
-                                                color: Colors.yellowAccent,
-                                              ),
-                                              Icon(
-                                                EvaIcons.star,
-                                                color: Colors.yellowAccent,
-                                              ),
-                                              Icon(
-                                                EvaIcons.star,
-                                                color: Colors.yellowAccent,
-                                              ),
-                                              Text(
-                                                data['name'],
-                                                style: TextStyle(
-                                                    color: Colors.grey.shade600,
-                                                    fontSize: 15),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: _newsCollection,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Something went wrong');
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text("Loading");
+                        }
+
+                        return ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> newsData =
+                                document.data()! as Map<String, dynamic>;
+                            return Container(
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 150,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.contain,
+                                              image: NetworkImage(
+                                                  newsData['imgurl']))),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Container(
+                                        constraints:
+                                            const BoxConstraints(maxWidth: 150),
+                                        child: Text(
+                                          newsData['title'],
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                        ),
                                       ),
                                     ),
-                                  );
-                                },
-                              );
-                            }
-                          },
+                                    Padding(
+                                      padding: const EdgeInsets.all(7.0),
+                                      child: Text(
+                                        newsData['author'],
+                                        style: TextStyle(
+                                            color: Colors.grey.shade600,
+                                            fontSize: 15),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: const [
+                                        Icon(
+                                          EvaIcons.star,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                        Icon(
+                                          EvaIcons.star,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                        Icon(
+                                          EvaIcons.star,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                        Icon(
+                                          EvaIcons.star,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                        Icon(
+                                          EvaIcons.star,
+                                          color: Colors.yellowAccent,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }).toList(),
                         );
                       },
                     ),
@@ -181,9 +170,9 @@ class _HomePageState extends State<HomePage> {
                       width: 450,
                       color: Colors.blue,
                       child: Column(
-                        children: [
+                        children: const [
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: EdgeInsets.all(20.0),
                             child: Text(
                               'Aqui es la radio',
                               style: TextStyle(
