@@ -1,3 +1,4 @@
+import 'package:decibels/classes/Storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -30,10 +31,20 @@ class Authenticator {
             await authenticator.signInWithCredential(credential);
         user = userCredential.user;
 
-        addUser(user);
+        bool userExists =
+            await usersCollection.get().then((QuerySnapshot querySnapshot) {
+          bool userE = false;
+          for (var element in querySnapshot.docs) {
+            if (element.id == user!.uid) {
+              userE = true;
+              return userE;
+            }
+          }
+          return userE;
+        });
 
+        addUser(user, userExists);
         navigatorKey.currentState!.popUntil((route) => route.isFirst);
-
         return user;
       } on FirebaseAuthException catch (e) {
         print('Error en la autenticación');
@@ -42,15 +53,19 @@ class Authenticator {
   }
 
   //Añade el usuario creado con Google en Firestore Database
-  static Future<void> addUser(User? user) async {
-    usersCollection.doc(user!.uid).set({
-      'userId': user.uid,
-      'name': user.displayName,
-      'email': user.email,
-      'phone': user.phoneNumber,
-      'photourl': user.photoURL,
-    });
+  static Future<void> addUser(User? user, bool userExists) async {
+    if (!userExists) {
+      usersCollection.doc(user!.uid).set({
+        'userId': user.uid,
+        'name': user.displayName,
+        'email': user.email,
+        'phone': user.phoneNumber,
+        'photourl': user.photoURL,
+      });
 
-    print(usersCollection.doc(user.uid));
+      print(usersCollection.doc(user.uid));
+    } else {
+      print('Usuario ya existe');
+    }
   }
 }

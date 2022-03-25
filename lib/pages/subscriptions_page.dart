@@ -10,7 +10,7 @@ class Subscriptions extends StatelessWidget {
         title: Center(
           child: new Text("Lista de subscripciones"),
         ),
-         backgroundColor:Color.fromARGB(118, 31, 89, 128),
+         backgroundColor: const Color(0xff208AAE),
       ),
       body: ListaBiblioteca(),
     );

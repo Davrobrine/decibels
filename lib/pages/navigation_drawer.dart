@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/classes/DataController.dart';
 import 'package:decibels/pages/home_page.dart';
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/profile_page.dart';
+import 'package:decibels/pages/search.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerPage extends StatefulWidget {
   DrawerPage({Key? key}) : super(key: key);
@@ -28,19 +32,39 @@ class _DrawerPageState extends State<DrawerPage> {
     return Scaffold(
       appBar: AppBar(
         ///centerTitle: new Text('Decibels'),
+        backgroundColor: const Color(0xff208AAE),
         title: const Center(
-          child: Text("DECIBELS"),
+          child: Text("BEATSMOON"),
+          
         ),
-        backgroundColor: const Color.fromARGB(118, 31, 89, 128),
+        actions: <Widget>[
+          GetBuilder<DataController>(
+            init: DataController(),
+            builder: (val) {
+              return IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Busqueda(),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.search),
+              );
+            },
+          )
+        ],
+       
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(118, 31, 89, 128),
+                color: const Color(0xff208AAE),
               ),
-              child: Image.asset('assets/decibels.png'),
+              child: Image.asset('assets/logof.png'),
             ),
             ListTile(
               leading: const Icon(Icons.person),
@@ -49,7 +73,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Perfil(userId, usersCollection),
+                    builder: (context) => Perfil(userId),
                   ),
                 );
               },
@@ -80,7 +104,8 @@ class _DrawerPageState extends State<DrawerPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Configuracion(userId),
+                    builder: (context) =>
+                        Configuracion(userId, usersCollection),
                   ),
                 );
               },
@@ -89,7 +114,24 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.plagiarism_rounded),
               title: const Text('Términos'),
               onTap: () {
-                Navigator.of(context).pushNamed('/Terminos');
+              // Navigator.of(context).pushNamed('/Terminos');
+              launch('https://beatsmoon.000webhostapp.com/politics_privacy.html');
+              },
+            ),
+             ListTile(
+              leading: const Icon(Icons.web),
+              title: const Text('Nuestra WEB'),
+              onTap: () {
+              // Navigator.of(context).pushNamed('/Terminos');
+              launch('https://beatsmoon.000webhostapp.com/');
+              },
+            ),
+              ListTile(
+              leading: const Icon(Icons.radio),
+              title: const Text('Radio'),
+              onTap: () {
+              // Navigator.of(context).pushNamed('/Terminos');
+              launch('https://toluvaradio.000webhostapp.com/');
               },
             ),
             ListTile(
@@ -103,6 +145,7 @@ class _DrawerPageState extends State<DrawerPage> {
         ),
       ),
       body: HomePage(userId, usersCollection),
+      backgroundColor: const Color(0xff208AAE),
     );
   }
 }

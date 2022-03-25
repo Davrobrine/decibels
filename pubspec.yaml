@@ -41,6 +41,12 @@ dependencies:
   firebase_storage: ^10.2.9
   firebase_storage_web: ^3.2.10
   audioplayers: ^0.20.1
+  get: ^4.6.1
+  url_launcher: ^6.0.20
+  get_storage: ^2.0.3
+  eva_icons_flutter: ^3.1.0
+  file_picker: ^4.5.1
+
 
 dev_dependencies:
   flutter_test:

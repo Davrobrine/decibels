@@ -29,18 +29,17 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+    
       padding: const EdgeInsets.all(16),
       child: Column(
+        
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 20),
-          Image.asset('assets/decibels.png'),
+          Image.asset('assets/loginlogo.png'),
           const SizedBox(height: 20),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: Colors.blueGrey),
-            ),
+          
             child: TextField(
               controller: _emailController,
               cursorColor: Colors.white,
@@ -51,10 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 4),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.blueGrey),
-            ),
+            
             child: TextField(
               controller: _passwordController,
               textInputAction: TextInputAction.done,
@@ -66,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
-              primary: Colors.lightBlueAccent,
+              primary: Colors.black,
               minimumSize: const Size.fromHeight(50),
             ),
             icon: const Icon(Icons.login, size: 32),
@@ -85,8 +81,9 @@ class _LoginPageState extends State<LoginPage> {
               print(user?.displayName);
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xffDB4437),
               minimumSize: const Size.fromHeight(50),
+              primary: Color.fromARGB(255, 226, 30, 69)
+              
             ),
             icon: const FaIcon(
               FontAwesomeIcons.google,
@@ -108,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
             },
             style: ElevatedButton.styleFrom(
               minimumSize: const Size.fromHeight(50),
+              primary: const Color(0xff208AAE),
             ),
             icon: const FaIcon(
               FontAwesomeIcons.user,

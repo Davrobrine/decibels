@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/classes/Storage.dart';
 import 'package:decibels/pages/settings_page.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Perfil extends StatelessWidget {
   final String userId;
-  final CollectionReference usersCollection;
-  Perfil(this.userId, this.usersCollection, {Key? key}) : super(key: key);
+  // final CollectionReference usersCollection;
+  Perfil(this.userId, {Key? key}) : super(key: key);
 
   static const String routeName = "/Perfil";
-  final user = FirebaseAuth.instance.currentUser!;
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class Perfil extends StatelessWidget {
               title: const Center(
                 child: Text("Perfil"),
               ),
-              backgroundColor: const Color.fromARGB(118, 31, 89, 128),
+              backgroundColor: const Color(0xff208AAE),
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,10 +75,20 @@ class Perfil extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(50),
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
-                  child: botonajuste(userId),
-                )
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 90,
+                    width: 450,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: botonajuste(userId))
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           );
@@ -91,24 +105,55 @@ class botonajuste extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      foregroundColor: Colors.white,
+    final Storage storage = Storage();
+    final actualUser = FirebaseAuth.instance.currentUser!;
 
-      onPressed: () {
-        // Navigator.pop(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Configuracion(userId),
-          ),
-        );
-      },
-      label: const Text(
-        'Ajustes',
-        style: TextStyle(color: Colors.white),
-      ),
-      icon: const Icon(Icons.edit),
-      elevation: 10,
+    if (userId == actualUser.uid) {
+      return FloatingActionButton.extended(
+        foregroundColor: Colors.white,
+        onPressed: () async {
+          final results = await FilePicker.platform.pickFiles(
+            allowMultiple: false,
+            type: FileType.custom,
+            allowedExtensions: ['mp3'],
+          );
+          if (results == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Ningun archivo seleccionado'),
+              ),
+            );
+            return null;
+          }
+          final path = results.files.single.path;
+          final fileName = results.files.single.name;
+          print("esto que es: $path");
+          print(fileName);
+          storage
+              .updateFile(path!, fileName)
+              .then((value) => print('Archivo subido'));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Archivo subido'),
+            ),
+          );
+        },
+        label: const Text(
+          'Subir archivo',
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(
+          Icons.upgrade,
+          size: 38,
+        ),
+        elevation: 10,
+      );
+    }
+
+    return ElevatedButton.icon(
+      onPressed: () {},
+      icon: const FaIcon(FontAwesomeIcons.plus),
+      label: const Text('Seguir'),
     );
   }
 }
@@ -166,9 +211,7 @@ class conecciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(
-      color: Color.fromARGB(150, 0, 0, 0),
-    );
+    final style = TextStyle(color: Color.fromARGB(150, 0, 0, 0));
     return Column(
       children: <Widget>[
         Text(
