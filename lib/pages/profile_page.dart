@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/classes/Storage.dart';
 import 'package:decibels/pages/settings_page.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -73,6 +75,20 @@ class Perfil extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(50),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 90,
+                    width: 450,
+                    child: Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: botonajuste())
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           );
@@ -84,14 +100,39 @@ class Perfil extends StatelessWidget {
 }
 
 class botonajuste extends StatelessWidget {
-  final String userId;
-  const botonajuste(this.userId, {Key? key}) : super(key: key);
+  const botonajuste({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
     return FloatingActionButton.extended(
-      foregroundColor: Colors.white,
-      onPressed: () {
+      foregroundColor: Colors.red,
+      onPressed: () async {
+        final results = await FilePicker.platform.pickFiles(
+          allowMultiple: false,
+          type: FileType.custom,
+          allowedExtensions: ['mp3'],
+        );
+        if (results == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Ningun archivo seleccionado'),
+            ),
+          );
+          return null;
+        }
+        final path = results.files.single.path;
+        final fileName = results.files.single.name;
+        print("esto que es: $path");
+        print(fileName);
+        storage
+            .updateFile(path!, fileName)
+            .then((value) => print('Archivo subido'));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Archivo subido'),
+          ),
+        );
         // Navigator.pop(context);
         // Navigator.push(
         //   context,
@@ -101,10 +142,13 @@ class botonajuste extends StatelessWidget {
         // );
       },
       label: const Text(
-        'Ajustes',
+        'Subir archivo',
         style: TextStyle(color: Colors.white),
       ),
-      icon: const Icon(Icons.edit),
+      icon: const Icon(
+        Icons.upgrade,
+        size: 38,
+      ),
       elevation: 10,
     );
   }
