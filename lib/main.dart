@@ -27,12 +27,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     final Storage storage = Storage();
     return GetMaterialApp(
+
       title: 'BEATSMOON',
       navigatorKey: navigatorKey,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red
       ),
       home: const MyHomePage(),
       routes: <String, WidgetBuilder>{
