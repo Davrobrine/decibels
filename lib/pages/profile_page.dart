@@ -29,7 +29,7 @@ class Perfil extends StatelessWidget {
               title: const Center(
                 child: Text("Perfil"),
               ),
-              backgroundColor: const Color.fromARGB(118, 31, 89, 128),
+              backgroundColor: const Color(0xff208AAE),
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -106,7 +106,7 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     final Storage storage = Storage();
     return FloatingActionButton.extended(
-      foregroundColor: Colors.red,
+      foregroundColor: Colors.blueAccent,
       onPressed: () async {
         final results = await FilePicker.platform.pickFiles(
           allowMultiple: false,
@@ -207,9 +207,7 @@ class conecciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(
-      color: Color.fromARGB(150, 0, 0, 0),
-    );
+    final style = TextStyle(color: Color.fromARGB(150, 0, 0, 0));
     return Column(
       children: <Widget>[
         Text(
