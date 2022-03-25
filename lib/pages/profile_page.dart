@@ -4,6 +4,7 @@ import 'package:decibels/pages/settings_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Perfil extends StatelessWidget {
   final String userId;
@@ -11,7 +12,6 @@ class Perfil extends StatelessWidget {
   Perfil(this.userId, {Key? key}) : super(key: key);
 
   static const String routeName = "/Perfil";
-  final actualUser = FirebaseAuth.instance.currentUser!;
   CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('users');
 
@@ -84,7 +84,7 @@ class Perfil extends StatelessWidget {
                       children: [
                         Padding(
                             padding: const EdgeInsets.all(20.0),
-                            child: botonajuste())
+                            child: botonajuste(userId))
                       ],
                     ),
                   ),
@@ -100,56 +100,60 @@ class Perfil extends StatelessWidget {
 }
 
 class botonajuste extends StatelessWidget {
-  const botonajuste({Key? key}) : super(key: key);
+  final String userId;
+  const botonajuste(this.userId, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final Storage storage = Storage();
-    return FloatingActionButton.extended(
-      foregroundColor: Colors.blueAccent,
-      onPressed: () async {
-        final results = await FilePicker.platform.pickFiles(
-          allowMultiple: false,
-          type: FileType.custom,
-          allowedExtensions: ['mp3'],
-        );
-        if (results == null) {
+    final actualUser = FirebaseAuth.instance.currentUser!;
+
+    if (userId == actualUser.uid) {
+      return FloatingActionButton.extended(
+        foregroundColor: Colors.white,
+        onPressed: () async {
+          final results = await FilePicker.platform.pickFiles(
+            allowMultiple: false,
+            type: FileType.custom,
+            allowedExtensions: ['mp3'],
+          );
+          if (results == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Ningun archivo seleccionado'),
+              ),
+            );
+            return null;
+          }
+          final path = results.files.single.path;
+          final fileName = results.files.single.name;
+          print("esto que es: $path");
+          print(fileName);
+          storage
+              .updateFile(path!, fileName)
+              .then((value) => print('Archivo subido'));
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Ningun archivo seleccionado'),
+              content: Text('Archivo subido'),
             ),
           );
-          return null;
-        }
-        final path = results.files.single.path;
-        final fileName = results.files.single.name;
-        print("esto que es: $path");
-        print(fileName);
-        storage
-            .updateFile(path!, fileName)
-            .then((value) => print('Archivo subido'));
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Archivo subido'),
-          ),
-        );
-        // Navigator.pop(context);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => Configuracion(userId),
-        //   ),
-        // );
-      },
-      label: const Text(
-        'Subir archivo',
-        style: TextStyle(color: Colors.white),
-      ),
-      icon: const Icon(
-        Icons.upgrade,
-        size: 38,
-      ),
-      elevation: 10,
+        },
+        label: const Text(
+          'Subir archivo',
+          style: TextStyle(color: Colors.white),
+        ),
+        icon: const Icon(
+          Icons.upgrade,
+          size: 38,
+        ),
+        elevation: 10,
+      );
+    }
+
+    return ElevatedButton.icon(
+      onPressed: () {},
+      icon: const FaIcon(FontAwesomeIcons.plus),
+      label: const Text('Seguir'),
     );
   }
 }

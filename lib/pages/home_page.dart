@@ -164,7 +164,6 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-
                   InkWell(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Padding(
@@ -173,14 +172,15 @@ class _HomePageState extends State<HomePage> {
                         height: 90,
                         width: 450,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20)),
-                        color: const Color(0xff902d41),
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color(0xff902d41),
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(20.0),
                               child: Text(
                                 'Nuestra radio en vivo',
                                 style: TextStyle(
@@ -188,7 +188,6 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 35.0,
                                     fontWeight: FontWeight.bold),
                               ),
-
                             ),
                           ],
                         ),
