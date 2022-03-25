@@ -3,6 +3,7 @@ import 'package:decibels/classes/DataController.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   final String userId;
@@ -174,28 +175,38 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 90,
-                      width: 450,
-                      color: Colors.blue,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              'Aqui es la radio',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40.0,
-                                  fontWeight: FontWeight.bold),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 90,
+                        width: 450,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20)),
+                        color: const Color(0xff902d41),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                'Nuestra radio en vivo',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                    onTap: () {
+                      launch('https://toluvaradio.000webhostapp.com/');
+                    },
+                  )
                 ],
               ),
             ),
