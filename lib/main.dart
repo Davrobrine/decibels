@@ -1,3 +1,4 @@
+import 'package:decibels/classes/Storage.dart';
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
@@ -10,10 +11,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp().then((value) => runApp(const MyApp()));
+
+  await Firebase.initializeApp().then((value) => runApp(const MyApp()));
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -24,11 +27,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+    final Storage storage = Storage();
+    return GetMaterialApp(
+
       title: 'BEATSMOON',
       navigatorKey: navigatorKey,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red
       ),
       home: const MyHomePage(),
       routes: <String, WidgetBuilder>{

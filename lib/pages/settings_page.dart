@@ -16,9 +16,10 @@ class Configuracion extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Configuración"),
-        backgroundColor: const Color.fromARGB(118, 31, 89, 128),
+        backgroundColor: const Color(0xff208AAE),
       ),
       body: SingleChildScrollView(
+        
         child: Column(
           children: [
             Container(
@@ -43,6 +44,7 @@ class Configuracion extends StatelessWidget {
 
             //text ingreso nombre
             Container(
+             
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: _nameText,
