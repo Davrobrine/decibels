@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:decibels/pages/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +23,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffFFC857),
       appBar: AppBar(
+        backgroundColor: const Color(0xff208AAE),
         title: const Center(
           child: Text("¡Regístrate!"),
         ),
@@ -78,6 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
+                 primary: const Color(0xff208AAE),
               ),
               icon: const FaIcon(
                 FontAwesomeIcons.check,
@@ -86,6 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
               label: const Text(
                 'Registrarse',
                 style: TextStyle(fontSize: 24),
+               
               ),
             )
           ],
