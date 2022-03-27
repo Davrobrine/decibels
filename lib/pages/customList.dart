@@ -12,7 +12,10 @@ Widget customListTitle({String? title, String? singer, String? cover, onTap}) {
             width: 80.0,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
-                image: DecorationImage(image: NetworkImage(cover!))),
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: NetworkImage(cover!),
+                )),
           ),
           SizedBox(width: 10.0),
           Column(

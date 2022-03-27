@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:decibels/classes/Storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:get/get.dart';
 
 class CrearAlbum extends StatefulWidget {
@@ -78,17 +83,22 @@ class _CrearAlbumState extends State<CrearAlbum> {
                     .updateFile(path!, fileName, userPath)
                     .then((value) => print('Archivo subido'));
 
-                usersCollection.doc(user.uid).set({
-                  'albums': [
-                    {
-                      'albumAuthor': user.displayName,
-                      'albumDescription': _albumDescription.text,
-                      'albumName': _albumName.text,
-                      'coverUrl': fileName,
-                      'songs': [],
-                    }
-                  ],
-                }, SetOptions(merge: true));
+                var albumObj = {
+                  'albumAuthor': user.displayName,
+                  'albumDescription': _albumDescription.text,
+                  'albumName': _albumName.text,
+                  'coverUrl': fileName,
+                  'songs': [],
+                };
+
+                DocumentReference docRef = usersCollection.doc(user.uid);
+                DocumentSnapshot doc = await docRef.get();
+
+                List albums = doc['albums'];
+
+                docRef.update({
+                  'albums': FieldValue.arrayUnion([albumObj])
+                });
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
