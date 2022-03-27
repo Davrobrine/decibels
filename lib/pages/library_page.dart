@@ -100,7 +100,7 @@ class _MusicAppState extends State<MusicApp> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xff208AAE),
         title: Text(
           'Biblioteca',
           style: TextStyle(color: Colors.black),

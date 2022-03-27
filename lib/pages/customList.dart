@@ -29,7 +29,7 @@ Widget customListTitle({String? title, String? singer, String? cover, onTap}) {
               ),
               Text(
                 singer!,
-                style: TextStyle(color: Colors.grey, fontSize: 16.0),
+                style: TextStyle(color: Colors.white, fontSize: 16.0),
               ),
             ],
           ),

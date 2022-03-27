@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:decibels/classes/Storage.dart';
+import 'package:decibels/pages/albums.dart';
+import 'package:decibels/pages/generate_album.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -110,31 +112,12 @@ class botonajuste extends StatelessWidget {
 
     if (userId == actualUser.uid) {
       return FloatingActionButton.extended(
-        foregroundColor: Colors.white,
-        onPressed: () async {
-          final results = await FilePicker.platform.pickFiles(
-            allowMultiple: false,
-            type: FileType.custom,
-            allowedExtensions: ['mp3'],
-          );
-          if (results == null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Ningun archivo seleccionado'),
-              ),
-            );
-            return null;
-          }
-          final path = results.files.single.path;
-          final fileName = results.files.single.name;
-          print("esto que es: $path");
-          print(fileName);
-          storage
-              .updateFile(path!, fileName)
-              .then((value) => print('Archivo subido'));
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Archivo subido'),
+        foregroundColor: Colors.grey,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Album(),
             ),
           );
         },
