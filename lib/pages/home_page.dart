@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: Container(
                         height: 90,
                         width: 450,
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Padding(
-                              padding: EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(15.0),
                               child: Text(
                                 'Nuestra radio en vivo',
                                 style: TextStyle(

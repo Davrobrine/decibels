@@ -35,7 +35,6 @@ class _DrawerPageState extends State<DrawerPage> {
         backgroundColor: const Color(0xff208AAE),
         title: const Center(
           child: Text("BEATSMOON"),
-          
         ),
         actions: <Widget>[
           GetBuilder<DataController>(
@@ -55,7 +54,6 @@ class _DrawerPageState extends State<DrawerPage> {
             },
           )
         ],
-       
       ),
       drawer: Drawer(
         child: ListView(
@@ -114,24 +112,25 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.plagiarism_rounded),
               title: const Text('Términos'),
               onTap: () {
-              // Navigator.of(context).pushNamed('/Terminos');
-              launch('https://beatsmoon.000webhostapp.com/politics_privacy.html');
+                // Navigator.of(context).pushNamed('/Terminos');
+                launch(
+                    'https://beatsmoon.000webhostapp.com/politics_privacy.html');
               },
             ),
-             ListTile(
+            ListTile(
               leading: const Icon(Icons.web),
               title: const Text('Nuestra WEB'),
               onTap: () {
-              // Navigator.of(context).pushNamed('/Terminos');
-              launch('https://beatsmoon.000webhostapp.com/');
+                // Navigator.of(context).pushNamed('/Terminos');
+                launch('https://beatsmoon.000webhostapp.com/');
               },
             ),
-              ListTile(
+            ListTile(
               leading: const Icon(Icons.radio),
               title: const Text('Radio'),
               onTap: () {
-              // Navigator.of(context).pushNamed('/Terminos');
-              launch('https://toluvaradio.000webhostapp.com/');
+                // Navigator.of(context).pushNamed('/Terminos');
+                launch('https://toluvaradio.000webhostapp.com/');
               },
             ),
             ListTile(
