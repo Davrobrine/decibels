@@ -6,6 +6,7 @@ import 'package:decibels/pages/profile_page.dart';
 import 'package:decibels/pages/search.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:decibels/pages/settings_page.dart';
+import 'package:decibels/pages/subscriptions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,7 +93,13 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.subscriptions),
               title: const Text('Suscripciones'),
               onTap: () {
-                Navigator.of(context).pushNamed('/Subscriptions');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        Subscriptions(userId, usersCollection),
+                  ),
+                );
               },
             ),
             ListTile(

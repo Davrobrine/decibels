@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
         // Biblioteca.routeName: (BuildContext context) => Biblioteca(),
         Terminos.routeName: (BuildContext context) => Terminos(),
         // Settings.routeName: (BuildContext context) => Settings(),
-        Subscriptions.routeName: (BuildContext context) => Subscriptions(),
         RegisterPage.routeName: (BuildContext context) => RegisterPage(),
       },
       debugShowCheckedModeBanner: false,
