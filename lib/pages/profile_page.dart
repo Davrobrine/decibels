@@ -32,6 +32,9 @@ class Perfil extends StatelessWidget {
                 child: Text("Perfil"),
               ),
               backgroundColor: const Color(0xff208AAE),
+              actions: <Widget>[
+                botonajuste(userId),
+              ],
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,23 +77,6 @@ class Perfil extends StatelessWidget {
                 Descripcion(
                   text: 'Teléfono: ${data['phone']}',
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(50),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 90,
-                    width: 450,
-                    child: Column(
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: botonajuste(userId))
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
           );
@@ -111,8 +97,7 @@ class botonajuste extends StatelessWidget {
     final actualUser = FirebaseAuth.instance.currentUser!;
 
     if (userId == actualUser.uid) {
-      return FloatingActionButton.extended(
-        foregroundColor: Colors.grey,
+      return IconButton(
         onPressed: () {
           Navigator.push(
             context,
@@ -121,22 +106,16 @@ class botonajuste extends StatelessWidget {
             ),
           );
         },
-        label: const Text(
-          'Subir archivo',
-          style: TextStyle(color: Colors.white),
-        ),
         icon: const Icon(
           Icons.upgrade,
           size: 38,
         ),
-        elevation: 10,
       );
     }
 
-    return ElevatedButton.icon(
+    return IconButton(
       onPressed: () {},
       icon: const FaIcon(FontAwesomeIcons.plus),
-      label: const Text('Seguir'),
     );
   }
 }
