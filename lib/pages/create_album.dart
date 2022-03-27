@@ -88,7 +88,6 @@ class _CrearAlbumState extends State<CrearAlbum> {
                   'albumDescription': _albumDescription.text,
                   'albumName': _albumName.text,
                   'coverUrl': fileName,
-                  'songs': [],
                 };
 
                 DocumentReference docRef = usersCollection.doc(user.uid);
@@ -98,6 +97,17 @@ class _CrearAlbumState extends State<CrearAlbum> {
 
                 docRef.update({
                   'albums': FieldValue.arrayUnion([albumObj])
+                });
+
+                usersCollection
+                    .doc(user.uid)
+                    .collection('albums')
+                    .doc(_albumName.text)
+                    .set({
+                  'albumAuthor': user.displayName,
+                  'albumDescription': _albumDescription.text,
+                  'albumName': _albumName.text,
+                  'coverUrl': fileName,
                 });
 
                 ScaffoldMessenger.of(context).showSnackBar(

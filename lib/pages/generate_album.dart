@@ -9,46 +9,32 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'customList.dart';
 
-
 class GenerarAlbum extends StatefulWidget {
-  GenerarAlbum({Key? key}) : super(key: key);
+  String coverUrl;
+  int indexAlbum;
+  GenerarAlbum(this.coverUrl, this.indexAlbum, {Key? key}) : super(key: key);
 
   @override
   State<GenerarAlbum> createState() => _GenerarAlbumState();
-
-
 }
 
 class _GenerarAlbumState extends State<GenerarAlbum> {
-  List musicList = [
-    {
-      'albun': "Esto es un albun",
-      'singer': "Creador o copositor",
-      'coverUrl':
-          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Fnunca_es_suficiente.jpg?alt=media&token=406fb9aa-96a9-491c-8107-0fa888b82d04"
-    },
-    {
-      'albun': "Otro albun",
-      'singer': "otro compositor",
-      'coverUrl':
-          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Frata_blamca.jpg?alt=media&token=3246e394-dceb-45c4-921e-7a95895f6d03"
-    },
-  ];
-  final TextEditingController BusquedaController = TextEditingController();
-  late QuerySnapshot snapshotData;
-  bool isExcecuted = false;
+  final user = FirebaseAuth.instance.currentUser!;
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('users');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         foregroundColor: Colors.white,
         onPressed: () async {
-             Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AnadirCanciones(),
-                    ),
-                  );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AnadirCanciones(widget.indexAlbum),
+            ),
+          );
         },
         label: const Text(
           'Añadir Canciones',
@@ -61,32 +47,75 @@ class _GenerarAlbumState extends State<GenerarAlbum> {
       ),
       backgroundColor: Colors.orange,
       appBar: AppBar(
-        
         backgroundColor: Colors.green,
-        title: Text('Agregar Canciones', 
-        style: TextStyle(
-          color: Color.fromARGB(255, 255, 255, 255)
+        title: Text(
+          'Agregar Canciones',
+          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
         ),
-        ),
-
-      ), 
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: musicList.length,
-              itemBuilder: (context, index) => customListTitle(
-                onTap: () {},
-                title: musicList[index]['albun'],
-                singer: musicList[index]['singer'],
-                cover: musicList[index]['coverUrl'],
-              ),
-            ),
-          ),
-        ],
       ),
-      
+      body: FutureBuilder(
+        future: usersCollection.doc(user.uid).get(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            Map<String, dynamic> data =
+                snapshot.data!.data() as Map<String, dynamic>;
+            return Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 180.0,
+                        width: 180.0,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: NetworkImage(widget.coverUrl),
+                            )),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: Text(
+                            data['albums'][widget.indexAlbum]['albumName'],
+                            maxLines: 4,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+                      // child: const Text('canciones'),
+                      child: SizedBox(
+                        height: 300.0,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: 200,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Text('$index canciones');
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }
+
+          return Text("loading");
+        },
+      ),
     );
   }
 }
-

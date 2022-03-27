@@ -95,7 +95,7 @@ class _AlbumState extends State<Album> {
                   future: firestoreStorage().getData(userPath),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      print(snapshot.data.toString());
+                      String coverUrl = snapshot.data.toString();
                       return Column(
                         children: [
                           customListTitle(
@@ -103,7 +103,8 @@ class _AlbumState extends State<Album> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => GenerarAlbum(),
+                                  builder: (context) =>
+                                      GenerarAlbum(coverUrl, index),
                                 ),
                               );
                             },
