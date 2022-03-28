@@ -95,6 +95,8 @@ class botonajuste extends StatelessWidget {
   Widget build(BuildContext context) {
     final Storage storage = Storage();
     final actualUser = FirebaseAuth.instance.currentUser!;
+    CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('users');
 
     if (userId == actualUser.uid) {
       return IconButton(
@@ -114,7 +116,56 @@ class botonajuste extends StatelessWidget {
     }
 
     return IconButton(
-      onPressed: () {},
+      onPressed: () async {
+        DocumentReference docRef = usersCollection.doc(userId);
+        DocumentSnapshot doc = await docRef.get();
+
+        DocumentReference actualDocRef = usersCollection.doc(actualUser.uid);
+        DocumentSnapshot actualDoc = await actualDocRef.get();
+
+        List following = actualDoc['followingUsers'];
+
+        var userObj = {
+          'photourl': doc['photourl'],
+          'uid': userId,
+          'name': doc['name'],
+        };
+
+        int followers = doc['followers'];
+
+        if (following.length == 0) {
+          actualDocRef.update({
+            'followingUsers': FieldValue.arrayUnion([userObj])
+          });
+
+          followers += 1;
+          usersCollection.doc(userId).set({
+            'followers': followers,
+          }, SetOptions(merge: true));
+        }
+
+        for (int i = 0; i < following.length; i++) {
+          if (following[i]['uid'].contains(userObj['uid']) == true) {
+            actualDocRef.update({
+              'followingUsers': FieldValue.arrayRemove([userObj])
+            });
+
+            followers -= 1;
+            usersCollection.doc(userId).set({
+              'followers': followers,
+            }, SetOptions(merge: true));
+          } else {
+            actualDocRef.update({
+              'followingUsers': FieldValue.arrayUnion([userObj])
+            });
+
+            followers += 1;
+            usersCollection.doc(userId).set({
+              'followers': followers,
+            }, SetOptions(merge: true));
+          }
+        }
+      },
       icon: const FaIcon(FontAwesomeIcons.plus),
     );
   }

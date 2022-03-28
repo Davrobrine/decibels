@@ -59,6 +59,14 @@ class _GenerarAlbumState extends State<GenerarAlbum> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
+
+            String albumName = data['albums'][widget.indexAlbum]['albumName'];
+
+            DocumentReference albumSnapshot = usersCollection
+                .doc(user.uid)
+                .collection('albums')
+                .doc(albumName);
+
             return Padding(
               padding: EdgeInsets.all(10.0),
               child: Column(
@@ -98,11 +106,23 @@ class _GenerarAlbumState extends State<GenerarAlbum> {
                       // child: const Text('canciones'),
                       child: SizedBox(
                         height: 300.0,
-                        child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: 200,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Text('$index canciones');
+                        child: FutureBuilder(
+                          future: albumSnapshot.get(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              Map<String, dynamic> albumData =
+                                  snapshot.data!.data() as Map<String, dynamic>;
+                              return ListView.builder(
+                                itemCount: albumData['songs'].length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Text(
+                                      albumData['songs'][index]['songName']);
+                                },
+                              );
+                            }
+                            return Text("loading");
                           },
                         ),
                       ),

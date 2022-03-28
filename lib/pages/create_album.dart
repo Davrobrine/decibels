@@ -64,7 +64,7 @@ class _CrearAlbumState extends State<CrearAlbum> {
                 final results = await FilePicker.platform.pickFiles(
                   allowMultiple: false,
                   type: FileType.custom,
-                  allowedExtensions: ['jpg'],
+                  allowedExtensions: ['jpg', 'jpeg', 'png'],
                 );
                 if (results == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
