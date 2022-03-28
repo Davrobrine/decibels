@@ -1,63 +1,66 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class Subscriptions extends StatelessWidget {
+  final String userId;
+  final CollectionReference usersCollection;
+  Subscriptions(this.userId, this.usersCollection, {Key? key})
+      : super(key: key);
+
   static const String routeName = "/Subscriptions";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: new Text("Lista de subscripciones"),
+        title: const Center(
+          child: Text("Lista de usuarios seguidos"),
         ),
-         backgroundColor: const Color(0xff208AAE),
+        backgroundColor: const Color(0xff208AAE),
       ),
-      body: ListaBiblioteca(),
-    );
-  }
-}
+      body: FutureBuilder(
+        future: usersCollection.doc(userId).get(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData && !snapshot.data!.exists) {
+            return const Text("Document does not exist");
+          }
 
-class Cancion {
-  String nombre, artista, imagen;
-  Cancion(this.nombre, this.artista, this.imagen);
-}
+          if (snapshot.connectionState == ConnectionState.done) {
+            Map<String, dynamic> data =
+                snapshot.data!.data() as Map<String, dynamic>;
+            return ListView.builder(
+              itemCount: data['followingUsers'].length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  onTap: () {
+                    String userId = data['followingUsers'][index]['uid'];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Perfil(userId),
+                      ),
+                    );
+                  },
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(data['followingUsers'][index]['photourl']),
+                  ),
+                  title: Text(
+                    data['followingUsers'][index]['name'],
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26.0),
+                  ),
+                );
+              },
+            );
+          }
 
-class ListaBiblioteca extends StatefulWidget {
-  @override
-  _ListaBibliotecaState createState() => _ListaBibliotecaState();
-}
-
-class _ListaBibliotecaState extends State<ListaBiblioteca> {
-  late List<Cancion> canciones;
-
-  @override
-  void initState() {
-    canciones = [
-      Cancion("Artista 1", "artista 1", ''),
-      Cancion("Artista 2", "artista 2", ''),
-      Cancion("Artista 3", "artista 3", ''),
-      Cancion("Artista 4", "artista 4", ''),
-      Cancion("Artista 5", "artista 5", ''),
-    ];
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return ListTile(
-
-          title: Text(canciones[index].nombre),
-          subtitle: Text(canciones[index].artista),
-          leading: Icon(Icons.supervised_user_circle),
-          trailing: RaisedButton(
-            child: new Icon(Icons.add_alert_sharp),
-            onPressed: () {},
-          ),
-        );
-      },
-      itemCount: canciones.length,
+          return Text("loading");
+        },
+      ),
     );
   }
 }
