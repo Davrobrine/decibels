@@ -118,8 +118,19 @@ class _GenerarAlbumState extends State<GenerarAlbum> {
                               return ListView.builder(
                                 itemCount: albumData['songs'].length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return Text(
-                                      albumData['songs'][index]['songName']);
+                                  return ListTile(
+                                    title: Text(
+                                      '${index + 1} - ${albumData['songs'][index]['songName']}',
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 26.0),
+                                    ),
+                                    subtitle: Text(albumData['albumAuthor']),
+                                  );
+
+                                  // Text(
+                                  //     albumData['songs'][index]['songName'])
                                 },
                               );
                             }

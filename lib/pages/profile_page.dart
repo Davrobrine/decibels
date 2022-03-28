@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/classes/FirestoreStorage.dart';
 import 'package:decibels/classes/Storage.dart';
+import 'package:decibels/pages/albumPlayer_page.dart';
 import 'package:decibels/pages/albums.dart';
 import 'package:decibels/pages/generate_album.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -78,9 +81,118 @@ class Perfil extends StatelessWidget {
                   suscripciones: followers,
                   siguiendo: followingUsers,
                 ),
-                Descripcion(
-                  text: 'Teléfono: ${data['phone']}',
+                const SizedBox(
+                  height: 20.0,
                 ),
+                Text(
+                  'Albumes de ${data['name']}',
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                SizedBox(
+                  height: 300,
+                  width: 450,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: usersCollection
+                        .doc(userId)
+                        .collection('albums')
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Something went wrong');
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text("Loading");
+                      }
+
+                      if (snapshot.hasData) {
+                        return ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: snapshot.data!.docs
+                              .map((DocumentSnapshot document) {
+                            Map<String, dynamic> data =
+                                document.data()! as Map<String, dynamic>;
+
+                            String albumName = data['albumName'];
+                            String fileName = data['coverUrl'];
+                            String userPath =
+                                'albums/${userId}/$albumName/$fileName';
+
+                            return FutureBuilder(
+                              future: FirestoreStorage().getData(userPath),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                String coverUrl = snapshot.data.toString();
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AlbumPlayer(
+                                            albumName,
+                                            userId,
+                                            coverUrl,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 150,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              fit: BoxFit.contain,
+                                              image: NetworkImage(coverUrl),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8.0),
+                                          child: Container(
+                                            constraints: const BoxConstraints(
+                                                maxWidth: 150),
+                                            child: Text(
+                                              data['albumName'],
+                                              style: const TextStyle(
+                                                  fontSize: 20.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(7.0),
+                                          child: Text(
+                                            data['albumAuthor'],
+                                            style: TextStyle(
+                                                color: Colors.grey.shade600,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        );
+                      }
+
+                      return const CircularProgressIndicator();
+                    },
+                  ),
+                )
               ],
             ),
           );

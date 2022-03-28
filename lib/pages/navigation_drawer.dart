@@ -78,18 +78,6 @@ class _DrawerPageState extends State<DrawerPage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.library_music),
-              title: const Text('Biblioteca'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Biblioteca(userId),
-                  ),
-                );
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.subscriptions),
               title: const Text('Suscripciones'),
               onTap: () {
