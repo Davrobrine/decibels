@@ -61,6 +61,9 @@ class Authenticator {
         'email': user.email,
         'phone': user.phoneNumber,
         'photourl': user.photoURL,
+        'albums': [],
+        'followers': 0,
+        'followingUsers': [],
       });
 
       print(usersCollection.doc(user.uid));

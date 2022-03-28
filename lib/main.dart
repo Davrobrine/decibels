@@ -1,4 +1,5 @@
 import 'package:decibels/classes/Storage.dart';
+import 'package:decibels/pages/albums.dart';
 import 'package:decibels/pages/library_page.dart';
 import 'package:decibels/pages/login_page.dart';
 import 'package:decibels/pages/navigation_drawer.dart';
@@ -27,23 +28,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     final Storage storage = Storage();
     return GetMaterialApp(
-
       title: 'BEATSMOON',
       navigatorKey: navigatorKey,
-      theme: ThemeData(
-        primarySwatch: Colors.red
-      ),
+      theme: ThemeData(primarySwatch: Colors.red),
       home: const MyHomePage(),
       routes: <String, WidgetBuilder>{
         DrawerPage.routeName: (BuildContext context) => DrawerPage(),
+
         // Perfil.routeName: (BuildContext context) => Perfil(),
         // Biblioteca.routeName: (BuildContext context) => Biblioteca(),
         Terminos.routeName: (BuildContext context) => Terminos(),
         // Settings.routeName: (BuildContext context) => Settings(),
-        Subscriptions.routeName: (BuildContext context) => Subscriptions(),
         RegisterPage.routeName: (BuildContext context) => RegisterPage(),
       },
       debugShowCheckedModeBanner: false,

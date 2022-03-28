@@ -88,86 +88,89 @@ class _HomePageState extends State<HomePage> {
                             ConnectionState.waiting) {
                           return Text("Loading");
                         }
-
-                        return ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: snapshot.data!.docs
-                              .map((DocumentSnapshot document) {
-                            Map<String, dynamic> newsData =
-                                document.data()! as Map<String, dynamic>;
-                            return Container(
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 150,
-                                      width: 150,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              fit: BoxFit.contain,
-                                              image: NetworkImage(
-                                                  newsData['imgurl']))),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        constraints:
-                                            const BoxConstraints(maxWidth: 150),
+                        if (snapshot.hasData) {
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: snapshot.data!.docs
+                                .map((DocumentSnapshot document) {
+                              Map<String, dynamic> newsData =
+                                  document.data()! as Map<String, dynamic>;
+                              return Container(
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 150,
+                                        width: 150,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                fit: BoxFit.contain,
+                                                image: NetworkImage(
+                                                    newsData['imgurl']))),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Container(
+                                          constraints: const BoxConstraints(
+                                              maxWidth: 150),
+                                          child: Text(
+                                            newsData['title'],
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(7.0),
                                         child: Text(
-                                          newsData['title'],
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20.0),
+                                          newsData['author'],
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontSize: 15),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(7.0),
-                                      child: Text(
-                                        newsData['author'],
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontSize: 15),
+                                      Row(
+                                        children: const [
+                                          Icon(
+                                            EvaIcons.star,
+                                            color: Colors.yellowAccent,
+                                          ),
+                                          Icon(
+                                            EvaIcons.star,
+                                            color: Colors.yellowAccent,
+                                          ),
+                                          Icon(
+                                            EvaIcons.star,
+                                            color: Colors.yellowAccent,
+                                          ),
+                                          Icon(
+                                            EvaIcons.star,
+                                            color: Colors.yellowAccent,
+                                          ),
+                                          Icon(
+                                            EvaIcons.star,
+                                            color: Colors.yellowAccent,
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    Row(
-                                      children: const [
-                                        Icon(
-                                          EvaIcons.star,
-                                          color: Colors.yellowAccent,
-                                        ),
-                                        Icon(
-                                          EvaIcons.star,
-                                          color: Colors.yellowAccent,
-                                        ),
-                                        Icon(
-                                          EvaIcons.star,
-                                          color: Colors.yellowAccent,
-                                        ),
-                                        Icon(
-                                          EvaIcons.star,
-                                          color: Colors.yellowAccent,
-                                        ),
-                                        Icon(
-                                          EvaIcons.star,
-                                          color: Colors.yellowAccent,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          }).toList(),
-                        );
+                              );
+                            }).toList(),
+                          );
+                        }
+                        return const CircularProgressIndicator();
                       },
                     ),
                   ),
                   InkWell(
                     borderRadius: BorderRadius.circular(20.0),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: Container(
                         height: 90,
                         width: 450,
@@ -180,12 +183,12 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Padding(
-                              padding: EdgeInsets.all(20.0),
+                              padding: EdgeInsets.all(15.0),
                               child: Text(
                                 'Nuestra radio en vivo',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 35.0,
+                                    fontSize: 22.0,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
