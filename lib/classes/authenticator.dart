@@ -64,7 +64,6 @@ class Authenticator {
         'albums': [],
         'followers': 0,
         'followingUsers': [],
-        'library': [],
       });
 
       print(usersCollection.doc(user.uid));

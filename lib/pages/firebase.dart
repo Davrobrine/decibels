@@ -7,13 +7,15 @@ Future<void> userSetup(String displayName, String contrasena, String email,
   FirebaseAuth auth = FirebaseAuth.instance;
   String uid = auth.currentUser!.uid.toString();
   users.doc(uid).set({
+    'userId': uid,
     'name': displayName,
-    'contraseña': contrasena,
     'email': email,
+    'contraseña': contrasena,
     'phone': telefono,
-    'followers': 0,
     'photourl': null,
-    'Uid': uid,
+    'albums': [],
+    'followers': 0,
+    'followingUsers': [],
   });
   return;
 }
