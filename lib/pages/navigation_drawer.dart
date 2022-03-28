@@ -79,26 +79,13 @@ class _DrawerPageState extends State<DrawerPage> {
             ),
             ListTile(
               leading: const Icon(Icons.subscriptions),
-              title: const Text('Suscripciones'),
+              title: const Text('Seguidos'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
                         Subscriptions(userId, usersCollection),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configuración'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        Configuracion(userId, usersCollection),
                   ),
                 );
               },

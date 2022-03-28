@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:decibels/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class Subscriptions extends StatelessWidget {
@@ -13,8 +14,8 @@ class Subscriptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: new Text("Lista de subscripciones"),
+        title: const Center(
+          child: Text("Lista de usuarios seguidos"),
         ),
         backgroundColor: const Color(0xff208AAE),
       ),
@@ -22,7 +23,7 @@ class Subscriptions extends StatelessWidget {
         future: usersCollection.doc(userId).get(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
+            return const Text("Document does not exist");
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
@@ -31,7 +32,28 @@ class Subscriptions extends StatelessWidget {
             return ListView.builder(
               itemCount: data['followingUsers'].length,
               itemBuilder: (BuildContext context, int index) {
-                return Text(data['followingUsers'][index]['name']);
+                return ListTile(
+                  onTap: () {
+                    String userId = data['followingUsers'][index]['uid'];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Perfil(userId),
+                      ),
+                    );
+                  },
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(data['followingUsers'][index]['photourl']),
+                  ),
+                  title: Text(
+                    data['followingUsers'][index]['name'],
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26.0),
+                  ),
+                );
               },
             );
           }

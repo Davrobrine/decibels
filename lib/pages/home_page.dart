@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                                 'Nuestra radio en vivo',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 35.0,
+                                    fontSize: 22.0,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
