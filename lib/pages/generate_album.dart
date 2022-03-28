@@ -56,7 +56,8 @@ class _GenerarAlbumState extends State<GenerarAlbum> {
       body: FutureBuilder(
         future: usersCollection.doc(user.uid).get(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
 

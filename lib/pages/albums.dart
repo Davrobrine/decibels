@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
+import '../classes/FirestoreStorage.dart';
 import 'customList.dart';
 import 'generate_album.dart';
 
@@ -24,21 +25,6 @@ class _AlbumState extends State<Album> {
   void initState() {
     super.initState();
   }
-
-  List musicList = [
-    {
-      'albun': "Esto es un albun",
-      'singer': "Creador o copositor",
-      'coverUrl':
-          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Fnunca_es_suficiente.jpg?alt=media&token=406fb9aa-96a9-491c-8107-0fa888b82d04"
-    },
-    {
-      'albun': "Otro albun",
-      'singer': "otro compositor",
-      'coverUrl':
-          "https://firebasestorage.googleapis.com/v0/b/decibels-3361d.appspot.com/o/intento%2Frata_blamca.jpg?alt=media&token=3246e394-dceb-45c4-921e-7a95895f6d03"
-    },
-  ];
 
   final user = FirebaseAuth.instance.currentUser!;
   CollectionReference usersCollection =
@@ -69,7 +55,7 @@ class _AlbumState extends State<Album> {
       backgroundColor: Colors.blue,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text(
+        title: const Text(
           'Albums',
           style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
         ),
@@ -78,10 +64,11 @@ class _AlbumState extends State<Album> {
         future: usersCollection.doc(user.uid).get(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData && !snapshot.data!.exists) {
-            return Text("Document does not exist");
+            return const Text("Document does not exist");
           }
 
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
             return ListView.builder(
@@ -92,7 +79,7 @@ class _AlbumState extends State<Album> {
                 String userPath = 'albums/${user.uid}/$albumName/$fileName';
 
                 return FutureBuilder(
-                  future: firestoreStorage().getData(userPath),
+                  future: FirestoreStorage().getData(userPath),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       String coverUrl = snapshot.data.toString();
@@ -126,28 +113,9 @@ class _AlbumState extends State<Album> {
             );
           }
 
-          return Text("loading");
+          return const Text("loading");
         },
       ),
     );
-  }
-}
-
-class firestoreStorage {
-  String? coverUrl;
-
-  Future getData(userPath) async {
-    try {
-      await downloadURL(userPath);
-      return coverUrl;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Future<void> downloadURL(userPath) async {
-    coverUrl = await FirebaseStorage.instance.ref(userPath).getDownloadURL();
-
-    print('el link: ${coverUrl}');
   }
 }

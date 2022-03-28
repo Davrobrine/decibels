@@ -26,6 +26,10 @@ class Perfil extends StatelessWidget {
         if (snapshot.hasData) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
+
+          int followers = data['followers'];
+          int followingUsers = data['followingUsers'].length;
+
           return Scaffold(
             appBar: AppBar(
               title: const Center(
@@ -70,9 +74,9 @@ class Perfil extends StatelessWidget {
                     ],
                   ),
                 ),
-                const ConeccionGeneral(
-                  suscripciones: 20,
-                  siguiendo: 15,
+                ConeccionGeneral(
+                  suscripciones: followers,
+                  siguiendo: followingUsers,
                 ),
                 Descripcion(
                   text: 'Teléfono: ${data['phone']}',
@@ -203,7 +207,7 @@ class ConeccionGeneral extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           conecciones(
-            text: 'suscripciones',
+            text: 'Seguidores',
             numero: this.suscripciones,
           ),
           conecciones(text: "Siguiendo", numero: this.siguiendo),
