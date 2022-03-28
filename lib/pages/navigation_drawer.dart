@@ -6,6 +6,7 @@ import 'package:decibels/pages/profile_page.dart';
 import 'package:decibels/pages/search.dart';
 import 'package:decibels/pages/settings_page.dart';
 import 'package:decibels/pages/settings_page.dart';
+import 'package:decibels/pages/subscriptions_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +36,6 @@ class _DrawerPageState extends State<DrawerPage> {
         backgroundColor: const Color(0xff208AAE),
         title: const Center(
           child: Text("BEATSMOON"),
-          
         ),
         actions: <Widget>[
           GetBuilder<DataController>(
@@ -55,7 +55,6 @@ class _DrawerPageState extends State<DrawerPage> {
             },
           )
         ],
-       
       ),
       drawer: Drawer(
         child: ListView(
@@ -79,33 +78,14 @@ class _DrawerPageState extends State<DrawerPage> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.library_music),
-              title: const Text('Biblioteca'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Biblioteca(userId),
-                  ),
-                );
-              },
-            ),
-            ListTile(
               leading: const Icon(Icons.subscriptions),
-              title: const Text('Suscripciones'),
-              onTap: () {
-                Navigator.of(context).pushNamed('/Subscriptions');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configuración'),
+              title: const Text('Seguidos'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        Configuracion(userId, usersCollection),
+                        Subscriptions(userId, usersCollection),
                   ),
                 );
               },
@@ -114,24 +94,25 @@ class _DrawerPageState extends State<DrawerPage> {
               leading: const Icon(Icons.plagiarism_rounded),
               title: const Text('Términos'),
               onTap: () {
-              // Navigator.of(context).pushNamed('/Terminos');
-              launch('https://beatsmoon.000webhostapp.com/politics_privacy.html');
+                // Navigator.of(context).pushNamed('/Terminos');
+                launch(
+                    'https://beatsmoon.000webhostapp.com/politics_privacy.html');
               },
             ),
-             ListTile(
+            ListTile(
               leading: const Icon(Icons.web),
               title: const Text('Nuestra WEB'),
               onTap: () {
-              // Navigator.of(context).pushNamed('/Terminos');
-              launch('https://beatsmoon.000webhostapp.com/');
+                // Navigator.of(context).pushNamed('/Terminos');
+                launch('https://beatsmoon.000webhostapp.com/');
               },
             ),
-              ListTile(
+            ListTile(
               leading: const Icon(Icons.radio),
               title: const Text('Radio'),
               onTap: () {
-              // Navigator.of(context).pushNamed('/Terminos');
-              launch('https://toluvaradio.000webhostapp.com/');
+                // Navigator.of(context).pushNamed('/Terminos');
+                launch('https://toluvaradio.000webhostapp.com/');
               },
             ),
             ListTile(
